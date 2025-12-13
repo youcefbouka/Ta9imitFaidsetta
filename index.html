@@ -5,6 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مواعيد سنة 2026</title>
 <style>
+  /* أنماط صفحة الدخول */
+  #passwordPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+  }
+
+  #passwordPage.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .password-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .password-container h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 28px;
+  }
+
+  .password-container p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+
+  .password-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+
+  .password-input:focus {
+    border-color: #667eea;
+    outline: none;
+  }
+
+  .password-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .password-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .error-message {
+    color: #e74c3c;
+    margin-top: 15px;
+    font-size: 14px;
+    min-height: 20px;
+  }
+
+  /* إخفاء المحتوى الرئيسي في البداية */
+  #mainContent {
+    display: none;
+  }
+
+  /* أنماط الصفحة الرئيسية */
   :root {
     --bg: #f5f5f5;
     --row-odd: #ffffff;
@@ -284,6 +372,11 @@
     .filter-btn {
       width: 200px;
     }
+    
+    .password-container {
+      padding: 30px 20px;
+      margin: 20px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -313,84 +406,178 @@
 </head>
 <body>
 
-<header>
-  <h1>مواعيد سنة 2026</h1>
-  
-  <div class="next-appointment">
-    <h3>الموعد القادم</h3>
-    <div class="next-details">
-      <div class="next-item">
-        <div class="next-label">التاريخ:</div>
-        <div class="next-value" id="nextDate">جارٍ التحميل...</div>
+<!-- صفحة إدخال كلمة المرور -->
+<div id="passwordPage">
+  <div class="password-container">
+    <h2>الدخول إلى مواعيد 2026</h2>
+    <p>الرجاء إدخال كلمة المرور للوصول إلى الجدول</p>
+    <input type="password" id="passwordInput" class="password-input" placeholder="أدخل كلمة المرور هنا" autocomplete="off">
+    <button id="passwordBtn" class="password-btn">دخول</button>
+    <div id="passwordError" class="error-message"></div>
+    <div style="margin-top: 20px; color: #888; font-size: 14px;">
+      كلمة المرور: 2026
+    </div>
+  </div>
+</div>
+
+<!-- المحتوى الرئيسي (مخفي في البداية) -->
+<div id="mainContent">
+  <header>
+    <h1>مواعيد سنة 2026</h1>
+    
+    <div class="next-appointment">
+      <h3>الموعد القادم</h3>
+      <div class="next-details">
+        <div class="next-item">
+          <div class="next-label">التاريخ:</div>
+          <div class="next-value" id="nextDate">جارٍ التحميل...</div>
+        </div>
+        <div class="next-item">
+          <div class="next-label">المكان:</div>
+          <div class="next-value" id="nextPlace">جارٍ التحميل...</div>
+        </div>
+        <div class="next-item">
+          <div class="next-label">تقيميت:</div>
+          <div class="next-value" id="nextUnit">جارٍ التحميل...</div>
+        </div>
       </div>
-      <div class="next-item">
-        <div class="next-label">المكان:</div>
-        <div class="next-value" id="nextPlace">جارٍ التحميل...</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="today-info" id="todayInfo"></div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">جميع المواعيد</button>
+      <button class="filter-btn" data-filter="upcoming">المواعيد القادمة فقط</button>
+    </div>
+
+    <div class="date-filter">
+      <label for="monthFilter">تصفية حسب الشهر:</label>
+      <select id="monthFilter">
+        <option value="all">جميع الأشهر</option>
+        <option value="01">جانفي</option>
+        <option value="02">فيفري</option>
+        <option value="03">مارس</option>
+        <option value="04">أفريل</option>
+        <option value="05">ماي</option>
+        <option value="06">جوان</option>
+        <option value="07">جويلية</option>
+        <option value="08">أوت</option>
+        <option value="09">سبتمبر</option>
+        <option value="10">أكتوبر</option>
+        <option value="11">نوفمبر</option>
+        <option value="12">ديسمبر</option>
+      </select>
+    </div>
+
+    <div id="appointmentsContainer">
+      <!-- المواعيد سيتم عرضها هنا ديناميكياً -->
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(120deg, #4ade80, #22c55e);"></div>
+        <div class="legend-text">التاريخ</div>
       </div>
-      <div class="next-item">
-        <div class="next-label">تقيميت:</div>
-        <div class="next-value" id="nextUnit">جارٍ التحميل...</div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(120deg, #10b981, #059669);"></div>
+        <div class="legend-text">القصر</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(120deg, #3b82f6, #2563eb);"></div>
+        <div class="legend-text">الواحة</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(120deg, #f87171, #ef4444);"></div>
+        <div class="legend-text">التقيميت</div>
       </div>
     </div>
-  </div>
-</header>
+  </main>
 
-<main>
-  <div class="today-info" id="todayInfo"></div>
-
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">جميع المواعيد</button>
-    <button class="filter-btn" data-filter="upcoming">المواعيد القادمة فقط</button>
-  </div>
-
-  <div class="date-filter">
-    <label for="monthFilter">تصفية حسب الشهر:</label>
-    <select id="monthFilter">
-      <option value="all">جميع الأشهر</option>
-      <option value="01">جانفي</option>
-      <option value="02">فيفري</option>
-      <option value="03">مارس</option>
-      <option value="04">أفريل</option>
-      <option value="05">ماي</option>
-      <option value="06">جوان</option>
-      <option value="07">جويلية</option>
-      <option value="08">أوت</option>
-      <option value="09">سبتمبر</option>
-      <option value="10">أكتوبر</option>
-      <option value="11">نوفمبر</option>
-      <option value="12">ديسمبر</option>
-    </select>
-  </div>
-
-  <div id="appointmentsContainer">
-    <!-- المواعيد سيتم عرضها هنا ديناميكياً -->
-  </div>
-
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-color" style="background: linear-gradient(120deg, #4ade80, #22c55e);"></div>
-      <div class="legend-text">التاريخ</div>
-    </div>
-    <div class="legend-item">
-      <div class="legend-color" style="background: linear-gradient(120deg, #10b981, #059669);"></div>
-      <div class="legend-text">القصر</div>
-    </div>
-    <div class="legend-item">
-      <div class="legend-color" style="background: linear-gradient(120deg, #3b82f6, #2563eb);"></div>
-      <div class="legend-text">الواحة</div>
-    </div>
-    <div class="legend-item">
-      <div class="legend-color" style="background: linear-gradient(120deg, #f87171, #ef4444);"></div>
-      <div class="legend-text">التقيميت</div>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <p>جميع المواعيد محددة مسبقًا لعام 2026 | تم التحديث: ديسمبر 2025</p>
-</footer>
+  <footer>
+    <p>جميع المواعيد محددة مسبقًا لعام 2026 | تم التحديث: ديسمبر 2025</p>
+  </footer>
+</div>
 
 <script>
+  // ================ نظام كلمة المرور ================
+  const CORRECT_PASSWORD = "2026"; // يمكن تغيير كلمة المرور هنا
+  const passwordPage = document.getElementById('passwordPage');
+  const mainContent = document.getElementById('mainContent');
+  const passwordInput = document.getElementById('passwordInput');
+  const passwordBtn = document.getElementById('passwordBtn');
+  const passwordError = document.getElementById('passwordError');
+
+  // التحقق من كلمة المرور
+  function checkPassword() {
+    const enteredPassword = passwordInput.value.trim();
+    
+    if (enteredPassword === CORRECT_PASSWORD) {
+      // كلمة المرور صحيحة
+      passwordError.textContent = "";
+      passwordPage.classList.add('hidden');
+      
+      // إظهار المحتوى الرئيسي بعد تأخير بسيط
+      setTimeout(() => {
+        mainContent.style.display = 'block';
+        // تهيئة التطبيق بعد الدخول
+        initApp();
+      }, 500);
+      
+      // حفظ حالة الدخول في localStorage
+      localStorage.setItem('appointmentAccess', 'granted');
+    } else {
+      // كلمة المرور خاطئة
+      passwordError.textContent = "كلمة المرور غير صحيحة. حاول مرة أخرى.";
+      passwordInput.value = "";
+      passwordInput.focus();
+      
+      // تأثير اهتزاز
+      passwordPage.style.animation = 'shake 0.5s';
+      setTimeout(() => {
+        passwordPage.style.animation = '';
+      }, 500);
+    }
+  }
+
+  // إضافة تأثير اهتزاز
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // التحقق من الضغط على Enter في حقل كلمة المرور
+  passwordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkPassword();
+    }
+  });
+
+  // حدث النقر على زر الدخول
+  passwordBtn.addEventListener('click', checkPassword);
+
+  // التركيز على حقل كلمة المرور عند تحميل الصفحة
+  passwordInput.focus();
+
+  // التحقق مما إذا كان المستخدم قد سجل الدخول مسبقاً
+  function checkPreviousLogin() {
+    const hasAccess = localStorage.getItem('appointmentAccess');
+    
+    if (hasAccess === 'granted') {
+      // إذا كان قد سجل الدخول مسبقاً، نعرض المحتوى مباشرة
+      passwordPage.style.display = 'none';
+      mainContent.style.display = 'block';
+      initApp();
+    }
+  }
+
+  // ================ التطبيق الرئيسي ================
   // بيانات المواعيد
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
@@ -441,20 +628,22 @@
   ];
 
   // عناصر DOM
-  const appointmentsContainer = document.getElementById('appointmentsContainer');
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const monthFilter = document.getElementById('monthFilter');
-  const todayInfo = document.getElementById('todayInfo');
-  const nextDateEl = document.getElementById('nextDate');
-  const nextPlaceEl = document.getElementById('nextPlace');
-  const nextUnitEl = document.getElementById('nextUnit');
+  let appointmentsContainer, filterButtons, monthFilter, todayInfo, nextDateEl, nextPlaceEl, nextUnitEl;
 
   // تهيئة التطبيق
-  document.addEventListener('DOMContentLoaded', function() {
+  function initApp() {
+    appointmentsContainer = document.getElementById('appointmentsContainer');
+    filterButtons = document.querySelectorAll('.filter-btn');
+    monthFilter = document.getElementById('monthFilter');
+    todayInfo = document.getElementById('todayInfo');
+    nextDateEl = document.getElementById('nextDate');
+    nextPlaceEl = document.getElementById('nextPlace');
+    nextUnitEl = document.getElementById('nextUnit');
+    
     updateNextAppointment();
     renderAppointments(appointments);
     setupEventListeners();
-  });
+  }
 
   // تحويل التاريخ العربي إلى كائن Date
   function parseArabicDate(dateStr) {
@@ -478,8 +667,6 @@
     const appointmentDate = parseArabicDate(dateStr);
     const today = new Date();
     
-    // لاحظ: إذا كنا في سنة مختلفة عن 2026، فسنقارن بالأشهر والأيام فقط
-    // هذه مجرد محاكاة لأغراض العرض
     const currentYear = today.getFullYear();
     
     if (currentYear < 2026) {
@@ -651,7 +838,10 @@
     
     renderAppointments(filteredAppointments);
   }
+
+  // التحقق من الدخول السابق
+  checkPreviousLogin();
 </script>
 
 </body>
-  </html> 
+</html>
