@@ -8,37 +8,50 @@
     margin:0;
     padding:20px;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    background:#f0f4f8;
+    background:#f7f7f7;
   }
   h1 {
     text-align:center;
     margin-bottom:20px;
     color:#1f2937;
+    font-size:28px;
   }
   .row {
     display:flex;
     flex-direction:row;
     margin-bottom:12px;
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
   }
   .cell {
-    flex:1;
-    padding:16px 8px;
+    padding:18px 10px;
     text-align:center;
-    font-size:22px;
     font-weight:bold;
     color:white;
-    min-height:60px;
     display:flex;
     align-items:center;
     justify-content:center;
   }
-  .date { background:#16a34a; }     /* أخضر */
-  .place { background:#2563eb; }    /* أزرق */
-  .unit { background:#dc2626; }     /* أحمر */
+  .date {
+    flex:1.5;
+    font-size:24px;
+    background:#4ade80; /* أخضر هادئ */
+  }
+  .place {
+    flex:1;
+    font-size:24px;
+    background:#60a5fa; /* أزرق هادئ */
+  }
+  .unit {
+    flex:0 0 60px; /* مربع ثابت */
+    font-size:26px;
+    background:#f87171; /* أحمر فاتح هادئ */
+    border-radius:8px;
+  }
+
   @media(max-width:480px){
-    .cell { font-size:20px; padding:12px 4px; min-height:50px; }
+    .date, .place { font-size:22px; padding:14px 6px; }
+    .unit { font-size:24px; width:50px; height:50px; }
   }
 </style>
 </head>
@@ -46,6 +59,7 @@
 
 <h1>مواعيد سنة 2026</h1>
 
+<!-- مثال صفوف -->
 <div class="row">
   <div class="cell date">الخميس 08 جانفي</div>
   <div class="cell place">القصر</div>
@@ -76,7 +90,7 @@
   <div class="cell unit">2</div>
 </div>
 
-<!-- استمر بنفس النمط لجميع المواعيد -->
+<!-- باقي الصفوف بنفس النمط -->
 
 </body>
 </html> 
