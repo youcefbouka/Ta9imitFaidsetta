@@ -4,54 +4,80 @@
 <meta charset="UTF-8">
 <title>مواعيد 2026</title>
 <style>
-  body {
+  /* ألوان هادئة، متدرجة */
+  :root{
+    --bg:#f5f5f5;
+    --row-odd:#ffffff;
+    --row-even:#f0f4f8;
+    --date-bg:#4ade80;
+    --place-bg:#60a5fa;
+    --unit-bg:#f87171;
+    --text:#ffffff;
+  }
+
+  body{
     margin:0;
     padding:20px;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    background:#f7f7f7;
+    background:var(--bg);
+    color:#111827;
   }
-  h1 {
+
+  h1{
     text-align:center;
-    margin-bottom:20px;
-    color:#1f2937;
-    font-size:28px;
+    font-size:30px;
+    margin-bottom:24px;
   }
-  .row {
+
+  .row{
     display:flex;
     flex-direction:row;
     margin-bottom:12px;
     border-radius:12px;
     overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,0.08);
   }
-  .cell {
-    padding:18px 10px;
-    text-align:center;
-    font-weight:bold;
-    color:white;
+
+  .row:nth-child(odd){ background:var(--row-odd); }
+  .row:nth-child(even){ background:var(--row-even); }
+
+  .cell{
     display:flex;
     align-items:center;
     justify-content:center;
+    font-weight:bold;
+    color:var(--text);
+    padding:16px 8px;
+    font-size:24px;
   }
-  .date {
+
+  .date{
     flex:1.5;
-    font-size:24px;
-    background:#4ade80; /* أخضر هادئ */
+    background:linear-gradient(120deg,#4ade80,#22c55e);
   }
-  .place {
+
+  .place{
     flex:1;
-    font-size:24px;
-    background:#60a5fa; /* أزرق هادئ */
+    background:linear-gradient(120deg,#60a5fa,#3b82f6);
   }
-  .unit {
-    flex:0 0 60px; /* مربع ثابت */
-    font-size:26px;
-    background:#f87171; /* أحمر فاتح هادئ */
+
+  .unit{
+    flex:0 0 70px; /* مربع ثابت */
+    background:linear-gradient(120deg,#f87171,#ef4444);
     border-radius:8px;
+    font-size:28px;
   }
 
   @media(max-width:480px){
-    .date, .place { font-size:22px; padding:14px 6px; }
-    .unit { font-size:24px; width:50px; height:50px; }
+    .cell{
+      font-size:22px;
+      padding:12px 6px;
+    }
+    .unit{
+      width:55px;
+      height:55px;
+      font-size:24px;
+    }
   }
 </style>
 </head>
@@ -93,4 +119,4 @@
 <!-- باقي الصفوف بنفس النمط -->
 
 </body>
-</html> 
+</html>
