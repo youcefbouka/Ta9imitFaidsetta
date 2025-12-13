@@ -2,121 +2,544 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مواعيد 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مواعيد سنة 2026</title>
 <style>
-  /* ألوان هادئة، متدرجة */
-  :root{
-    --bg:#f5f5f5;
-    --row-odd:#ffffff;
-    --row-even:#f0f4f8;
-    --date-bg:#4ade80;
-    --place-bg:#60a5fa;
-    --unit-bg:#f87171;
-    --text:#ffffff;
+  :root {
+    --bg: #f5f5f5;
+    --row-odd: #ffffff;
+    --row-even: #f0f4f8;
+    --date-bg: #4ade80;
+    --place-bg: #60a5fa;
+    --unit-bg: #f87171;
+    --text: #ffffff;
+    --highlight: #fbbf24;
+    --shadow: rgba(0, 0, 0, 0.1);
   }
 
-  body{
-    margin:0;
-    padding:20px;
+  body {
+    margin: 0;
+    padding: 20px;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    background:var(--bg);
-    color:#111827;
+    background: var(--bg);
+    color: #111827;
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
-  h1{
-    text-align:center;
-    font-size:30px;
-    margin-bottom:24px;
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
   }
 
-  .row{
-    display:flex;
-    flex-direction:row;
-    margin-bottom:12px;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 1px 4px rgba(0,0,0,0.08);
+  h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #1f2937;
   }
 
-  .row:nth-child(odd){ background:var(--row-odd); }
-  .row:nth-child(even){ background:var(--row-even); }
-
-  .cell{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    color:var(--text);
-    padding:16px 8px;
-    font-size:24px;
+  .subtitle {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 20px;
   }
 
-  .date{
-    flex:1.5;
-    background:linear-gradient(120deg,#4ade80,#22c55e);
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
   }
 
-  .place{
-    flex:1;
-    background:linear-gradient(120deg,#60a5fa,#3b82f6);
+  .stat-box {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--shadow);
+    text-align: center;
+    min-width: 120px;
   }
 
-  .unit{
-    flex:0 0 70px; /* مربع ثابت */
-    background:linear-gradient(120deg,#f87171,#ef4444);
-    border-radius:8px;
-    font-size:28px;
+  .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3b82f6;
   }
 
-  @media(max-width:480px){
-    .cell{
-      font-size:22px;
-      padding:12px 6px;
+  .stat-label {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #4b5563;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px var(--shadow);
+  }
+
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+  }
+
+  .filter-btn.active {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .date-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .date-filter label {
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .date-filter select {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .row:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 15px var(--shadow);
+  }
+
+  .row.highlighted {
+    box-shadow: 0 0 0 3px var(--highlight);
+  }
+
+  .row:nth-child(odd) {
+    background: var(--row-odd);
+  }
+
+  .row:nth-child(even) {
+    background: var(--row-even);
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--text);
+    padding: 18px 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .date {
+    flex: 1.5;
+    background: linear-gradient(120deg, #4ade80, #22c55e);
+  }
+
+  .place {
+    flex: 1;
+    background: linear-gradient(120deg, #60a5fa, #3b82f6);
+  }
+
+  .unit {
+    flex: 0 0 70px;
+    background: linear-gradient(120deg, #f87171, #ef4444);
+    border-radius: 8px;
+    font-size: 24px;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }
+
+  .legend-text {
+    font-size: 14px;
+    color: #4b5563;
+  }
+
+  .today-info {
+    background: linear-gradient(120deg, #fbbf24, #f59e0b);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+  }
+
+  .today-info.show {
+    display: block;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    color: #6b7280;
+    font-size: 14px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  @media (max-width: 768px) {
+    .cell {
+      font-size: 18px;
+      padding: 14px 8px;
     }
-    .unit{
-      width:55px;
-      height:55px;
-      font-size:24px;
+    
+    .unit {
+      flex: 0 0 60px;
+      font-size: 22px;
+    }
+    
+    .filters, .date-filter {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .filter-btn {
+      width: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cell {
+      font-size: 16px;
+      padding: 12px 6px;
+    }
+    
+    .unit {
+      flex: 0 0 50px;
+      font-size: 20px;
+    }
+    
+    h1 {
+      font-size: 26px;
     }
   }
 </style>
 </head>
 <body>
 
-<h1>مواعيد سنة 2026</h1>
+<header>
+  <h1>مواعيد سنة 2026</h1>
+  <div class="subtitle">جدول المواعيد الشهرية للعام 2026</div>
+  
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-value">45</div>
+      <div class="stat-label">عدد المواعيد</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">2</div>
+      <div class="stat-label">عدد الأماكن</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3</div>
+      <div class="stat-label">عدد الوحدات</div>
+    </div>
+  </div>
+</header>
 
-<!-- مثال صفوف -->
-<div class="row">
-  <div class="cell date">الخميس 08 جانفي</div>
-  <div class="cell place">القصر</div>
-  <div class="cell unit">3</div>
-</div>
+<main>
+  <div class="today-info" id="todayInfo"></div>
 
-<div class="row">
-  <div class="cell date">الجمعة 16 جانفي</div>
-  <div class="cell place">الواحة</div>
-  <div class="cell unit">3</div>
-</div>
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">جميع المواعيد</button>
+    <button class="filter-btn" data-filter="القصر">القصر فقط</button>
+    <button class="filter-btn" data-filter="الواحة">الواحة فقط</button>
+    <button class="filter-btn" data-filter="unit-1">الوحدة 1</button>
+    <button class="filter-btn" data-filter="unit-2">الوحدة 2</button>
+    <button class="filter-btn" data-filter="unit-3">الوحدة 3</button>
+  </div>
 
-<div class="row">
-  <div class="cell date">السبت 24 جانفي</div>
-  <div class="cell place">القصر</div>
-  <div class="cell unit">1</div>
-</div>
+  <div class="date-filter">
+    <label for="monthFilter">تصفية حسب الشهر:</label>
+    <select id="monthFilter">
+      <option value="all">جميع الأشهر</option>
+      <option value="01">جانفي</option>
+      <option value="02">فيفري</option>
+      <option value="03">مارس</option>
+      <option value="04">أفريل</option>
+      <option value="05">ماي</option>
+      <option value="06">جوان</option>
+      <option value="07">جويلية</option>
+      <option value="08">أوت</option>
+      <option value="09">سبتمبر</option>
+      <option value="10">أكتوبر</option>
+      <option value="11">نوفمبر</option>
+      <option value="12">ديسمبر</option>
+    </select>
+  </div>
 
-<div class="row">
-  <div class="cell date">الأحد 01 فيفري</div>
-  <div class="cell place">الواحة</div>
-  <div class="cell unit">1</div>
-</div>
+  <div id="appointmentsContainer">
+    <!-- المواعيد سيتم عرضها هنا ديناميكياً -->
+  </div>
 
-<div class="row">
-  <div class="cell date">الإثنين 09 فيفري</div>
-  <div class="cell place">القصر</div>
-  <div class="cell unit">2</div>
-</div>
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: linear-gradient(120deg, #4ade80, #22c55e);"></div>
+      <div class="legend-text">التاريخ</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: linear-gradient(120deg, #60a5fa, #3b82f6);"></div>
+      <div class="legend-text">المكان</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: linear-gradient(120deg, #f87171, #ef4444);"></div>
+      <div class="legend-text">الوحدة</div>
+    </div>
+  </div>
+</main>
 
-<!-- باقي الصفوف بنفس النمط -->
+<footer>
+  <p>جميع المواعيد محددة مسبقًا لعام 2026 | تم التحديث: ديسمبر 2025</p>
+</footer>
+
+<script>
+  // بيانات المواعيد
+  const appointments = [
+    { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
+    { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
+    { date: "السبت 24 جانفي", place: "القصر", unit: "1" },
+    { date: "الأحد 01 فيفري", place: "الواحة", unit: "1" },
+    { date: "الإثنين 09 فيفري", place: "القصر", unit: "2" },
+    { date: "الثلاثاء 17 فيفري", place: "الواحة", unit: "2" },
+    { date: "الأربعاء 25 فيفري", place: "القصر", unit: "3" },
+    { date: "الخميس 05 مارس", place: "الواحة", unit: "3" },
+    { date: "الجمعة 13 مارس", place: "القصر", unit: "1" },
+    { date: "السبت 21 مارس", place: "الواحة", unit: "1" },
+    { date: "الأحد 29 مارس", place: "القصر", unit: "2" },
+    { date: "الإثنين 06 أفريل", place: "الواحة", unit: "2" },
+    { date: "الثلاثاء 14 أفريل", place: "القصر", unit: "3" },
+    { date: "الأربعاء 22 أفريل", place: "الواحة", unit: "3" },
+    { date: "الخميس 30 أفريل", place: "القصر", unit: "1" },
+    { date: "الجمعة 08 ماي", place: "الواحة", unit: "1" },
+    { date: "السبت 16 ماي", place: "القصر", unit: "2" },
+    { date: "الأحد 24 ماي", place: "الواحة", unit: "2" },
+    { date: "الإثنين 01 جوان", place: "القصر", unit: "3" },
+    { date: "الثلاثاء 09 جوان", place: "الواحة", unit: "3" },
+    { date: "الأربعاء 17 جوان", place: "القصر", unit: "1" },
+    { date: "الخميس 25 جوان", place: "الواحة", unit: "1" },
+    { date: "الجمعة 03 جويلية", place: "القصر", unit: "2" },
+    { date: "السبت 11 جويلية", place: "الواحة", unit: "2" },
+    { date: "الأحد 19 جويلية", place: "القصر", unit: "3" },
+    { date: "الإثنين 27 جويلية", place: "الواحة", unit: "3" },
+    { date: "الثلاثاء 04 أوت", place: "القصر", unit: "1" },
+    { date: "الأربعاء 12 أوت", place: "الواحة", unit: "1" },
+    { date: "الخميس 20 أوت", place: "القصر", unit: "2" },
+    { date: "الجمعة 28 أوت", place: "الواحة", unit: "2" },
+    { date: "السبت 05 سبتمبر", place: "القصر", unit: "3" },
+    { date: "الأحد 13 سبتمبر", place: "الواحة", unit: "3" },
+    { date: "الإثنين 21 سبتمبر", place: "القصر", unit: "1" },
+    { date: "الثلاثاء 29 سبتمبر", place: "الواحة", unit: "1" },
+    { date: "الأربعاء 07 أكتوبر", place: "القصر", unit: "2" },
+    { date: "الخميس 15 أكتوبر", place: "الواحة", unit: "2" },
+    { date: "الجمعة 23 أكتوبر", place: "القصر", unit: "3" },
+    { date: "السبت 31 أكتوبر", place: "الواحة", unit: "3" },
+    { date: "الأحد 08 نوفمبر", place: "القصر", unit: "1" },
+    { date: "الإثنين 16 نوفمبر", place: "الواحة", unit: "1" },
+    { date: "الثلاثاء 24 نوفمبر", place: "القصر", unit: "2" },
+    { date: "الأربعاء 02 ديسمبر", place: "الواحة", unit: "2" },
+    { date: "الخميس 10 ديسمبر", place: "القصر", unit: "3" },
+    { date: "الجمعة 18 ديسمبر", place: "الواحة", unit: "3" },
+    { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
+  ];
+
+  // عناصر DOM
+  const appointmentsContainer = document.getElementById('appointmentsContainer');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const monthFilter = document.getElementById('monthFilter');
+  const todayInfo = document.getElementById('todayInfo');
+
+  // تهيئة التطبيق
+  document.addEventListener('DOMContentLoaded', function() {
+    renderAppointments(appointments);
+    setupEventListeners();
+    checkTodayAppointment();
+  });
+
+  // عرض المواعيد
+  function renderAppointments(appointmentsToRender) {
+    appointmentsContainer.innerHTML = '';
+    
+    if (appointmentsToRender.length === 0) {
+      appointmentsContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: #6b7280; font-size: 18px;">لا توجد مواعيد مطابقة للبحث</div>';
+      return;
+    }
+    
+    appointmentsToRender.forEach(appointment => {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.setAttribute('data-place', appointment.place);
+      row.setAttribute('data-unit', appointment.unit);
+      
+      // استخراج الشهر من التاريخ
+      const monthMatch = appointment.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
+      if (monthMatch) {
+        const monthNames = {
+          "جانفي": "01", "فيفري": "02", "مارس": "03", 
+          "أفريل": "04", "ماي": "05", "جوان": "06",
+          "جويلية": "07", "أوت": "08", "سبتمبر": "09",
+          "أكتوبر": "10", "نوفمبر": "11", "ديسمبر": "12"
+        };
+        row.setAttribute('data-month', monthNames[monthMatch[1]] || '');
+      }
+      
+      row.innerHTML = `
+        <div class="cell date">${appointment.date}</div>
+        <div class="cell place">${appointment.place}</div>
+        <div class="cell unit">${appointment.unit}</div>
+      `;
+      
+      appointmentsContainer.appendChild(row);
+    });
+  }
+
+  // إعداد مستمعي الأحداث
+  function setupEventListeners() {
+    // فلترة حسب المكان أو الوحدة
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // إزالة النشاط من جميع الأزرار
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // إضافة النشاط للزر المحدد
+        this.classList.add('active');
+        
+        // تطبيق الفلترة
+        applyFilters();
+      });
+    });
+    
+    // فلترة حسب الشهر
+    monthFilter.addEventListener('change', applyFilters);
+    
+    // إضافة تفاعل النقر على الصفوف
+    document.addEventListener('click', function(e) {
+      const row = e.target.closest('.row');
+      if (row) {
+        // إزالة التمييز من جميع الصفوف
+        document.querySelectorAll('.row').forEach(r => r.classList.remove('highlighted'));
+        // تمييز الصف المحدد
+        row.classList.add('highlighted');
+        
+        // عرض تفاصيل الموعد
+        const date = row.querySelector('.date').textContent;
+        const place = row.querySelector('.place').textContent;
+        const unit = row.querySelector('.unit').textContent;
+        
+        todayInfo.textContent = `الموعد المحدد: ${date} في ${place} - الوحدة ${unit}`;
+        todayInfo.classList.add('show');
+      }
+    });
+  }
+
+  // تطبيق الفلاتر
+  function applyFilters() {
+    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+    const selectedMonth = monthFilter.value;
+    
+    let filteredAppointments = [...appointments];
+    
+    // تطبيق فلترة المكان/الوحدة
+    if (activeFilter !== 'all') {
+      if (activeFilter === 'القصر' || activeFilter === 'الواحة') {
+        filteredAppointments = filteredAppointments.filter(app => app.place === activeFilter);
+      } else if (activeFilter.startsWith('unit-')) {
+        const unitNum = activeFilter.split('-')[1];
+        filteredAppointments = filteredAppointments.filter(app => app.unit === unitNum);
+      }
+    }
+    
+    // تطبيق فلترة الشهر
+    if (selectedMonth !== 'all') {
+      filteredAppointments = filteredAppointments.filter(app => {
+        const monthMatch = app.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
+        if (monthMatch) {
+          const monthNames = {
+            "جانفي": "01", "فيفري": "02", "مارس": "03", 
+            "أفريل": "04", "ماي": "05", "جوان": "06",
+            "جويلية": "07", "أوت": "08", "سبتمبر": "09",
+            "أكتوبر": "10", "نوفمبر": "11", "ديسمبر": "12"
+          };
+          return monthNames[monthMatch[1]] === selectedMonth;
+        }
+        return false;
+      });
+    }
+    
+    renderAppointments(filteredAppointments);
+  }
+
+  // التحقق من موعد اليوم (لأغراض العرض)
+  function checkTodayAppointment() {
+    const today = new Date();
+    const todayFormatted = today.toLocaleDateString('ar-EG', { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long' 
+    });
+    
+    // للعرض التوضيحي، سنقوم بمقارنة مع أول موعد
+    const demoDate = appointments[0].date;
+    
+    todayInfo.textContent = `اليوم هو ${todayFormatted} - أول موعد في الجدول: ${appointments[0].date} في ${appointments[0].place}`;
+    todayInfo.classList.add('show');
+  }
+</script>
 
 </body>
-</html>
+                                 </html> 
