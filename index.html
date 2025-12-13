@@ -7,12 +7,11 @@
   :root{
     --bg:#f7f9fc;
     --card:#ffffff;
-    --border:#e3e7ef;
-    --title:#1f2937;
+    --border:#cbd5e1;
     --date:#0f766e;
     --place:#1d4ed8;
     --unit:#7c2d12;
-    --odd:#f1f5f9;
+    --odd:#e2e8f0;
     --even:#ffffff;
   }
   body{
@@ -29,46 +28,45 @@
   h1{
     text-align:center;
     margin:24px 0 16px;
-    color:var(--title);
+    color:#1f2937;
   }
   .legend{
-    display:flex;
+    display:grid;
+    grid-template-columns: 1.6fr .8fr .6fr;
     gap:12px;
-    justify-content:center;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
     margin-bottom:16px;
-    font-size:14px;
-    opacity:.9;
   }
-  .legend span{ padding:4px 10px; border-radius:999px; background:#e5e7eb; }
-
   .row{
     display:grid;
     grid-template-columns: 1.6fr .8fr .6fr;
     gap:12px;
     align-items:center;
-    padding:12px 14px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    margin:10px 0;
+    padding:12px 0;
+    margin:6px 0;
     background:var(--card);
-    box-shadow:0 1px 0 rgba(0,0,0,.02);
+    border:2px solid var(--border);
+    border-radius:10px;
+    font-size:18px; /* حجم أكبر */
   }
   .row:nth-child(odd){ background:var(--odd); }
   .row:nth-child(even){ background:var(--even); }
 
   .cell{
-    background:#fff;
-    border:1px dashed var(--border);
-    border-radius:10px;
-    padding:10px 12px;
-    min-height:40px;
     display:flex;
+    justify-content:center;
     align-items:center;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:10px 0;
+    min-height:50px;
     font-weight:600;
   }
   .date{ color:var(--date); }
-  .place{ color:var(--place); justify-content:center; }
-  .unit{ color:var(--unit); justify-content:center; font-size:18px; }
+  .place{ color:var(--place); }
+  .unit{ color:var(--unit); font-size:20px; }
 
   @media print{
     body{ background:#fff; }
@@ -80,8 +78,11 @@
 
 <div class="wrap">
   <h1>مواعيد سنة 2026</h1>
+
   <div class="legend">
-    <span>التاريخ</span><span>المكان</span><span>الواحدة</span>
+    <div>التاريخ</div>
+    <div>المكان</div>
+    <div>الواحدة</div>
   </div>
 
   <!-- الصفوف -->
@@ -111,7 +112,7 @@
     <div class="cell unit">2</div>
   </div>
 
-  <!-- (تابع بنفس النمط لبقية المواعيد) -->
+  <!-- باقي الصفوف تباعاً بنفس النمط -->
 
 </div>
 </body>
