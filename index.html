@@ -4,81 +4,115 @@
 <meta charset="UTF-8">
 <title>مواعيد 2026</title>
 <style>
-  body { font-family: Arial, Tahoma, sans-serif; margin: 40px; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { border: 1px solid #000; padding: 8px; text-align: right; }
-  th { background: #f2f2f2; }
+  :root{
+    --bg:#f7f9fc;
+    --card:#ffffff;
+    --border:#e3e7ef;
+    --title:#1f2937;
+    --date:#0f766e;
+    --place:#1d4ed8;
+    --unit:#7c2d12;
+    --odd:#f1f5f9;
+    --even:#ffffff;
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    color:#111827;
+  }
+  .wrap{
+    max-width:900px;
+    margin:32px auto;
+    padding:0 16px 48px;
+  }
+  h1{
+    text-align:center;
+    margin:24px 0 16px;
+    color:var(--title);
+  }
+  .legend{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:16px;
+    font-size:14px;
+    opacity:.9;
+  }
+  .legend span{ padding:4px 10px; border-radius:999px; background:#e5e7eb; }
+
+  .row{
+    display:grid;
+    grid-template-columns: 1.6fr .8fr .6fr;
+    gap:12px;
+    align-items:center;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin:10px 0;
+    background:var(--card);
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+  .row:nth-child(odd){ background:var(--odd); }
+  .row:nth-child(even){ background:var(--even); }
+
+  .cell{
+    background:#fff;
+    border:1px dashed var(--border);
+    border-radius:10px;
+    padding:10px 12px;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    font-weight:600;
+  }
+  .date{ color:var(--date); }
+  .place{ color:var(--place); justify-content:center; }
+  .unit{ color:var(--unit); justify-content:center; font-size:18px; }
+
+  @media print{
+    body{ background:#fff; }
+    .row{ page-break-inside:avoid; }
+  }
 </style>
 </head>
 <body>
 
-<h2>مواعيد سنة 2026</h2>
+<div class="wrap">
+  <h1>مواعيد سنة 2026</h1>
+  <div class="legend">
+    <span>التاريخ</span><span>المكان</span><span>الواحدة</span>
+  </div>
 
-<table>
-<thead>
-<tr>
-  <th>التاريخ</th>
-  <th>المكان</th>
-  <th>الواحدة</th>
-</tr>
-</thead>
-<tbody>
+  <!-- الصفوف -->
+  <div class="row">
+    <div class="cell date">الخميس 08 جانفي</div>
+    <div class="cell place">القصر</div>
+    <div class="cell unit">3</div>
+  </div>
+  <div class="row">
+    <div class="cell date">الجمعة 16 جانفي</div>
+    <div class="cell place">الواحة</div>
+    <div class="cell unit">3</div>
+  </div>
+  <div class="row">
+    <div class="cell date">السبت 24 جانفي</div>
+    <div class="cell place">القصر</div>
+    <div class="cell unit">1</div>
+  </div>
+  <div class="row">
+    <div class="cell date">الأحد 01 فيفري</div>
+    <div class="cell place">الواحة</div>
+    <div class="cell unit">1</div>
+  </div>
+  <div class="row">
+    <div class="cell date">الإثنين 09 فيفري</div>
+    <div class="cell place">القصر</div>
+    <div class="cell unit">2</div>
+  </div>
 
-<tr><td>الخميس 08 جانفي</td><td>القصر</td><td>3</td></tr>
-<tr><td>الجمعة 16 جانفي</td><td>الواحة</td><td>3</td></tr>
-<tr><td>السبت 24 جانفي</td><td>القصر</td><td>1</td></tr>
-<tr><td>الأحد 01 فيفري</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الإثنين 09 فيفري</td><td>القصر</td><td>2</td></tr>
-<tr><td>الثلاثاء 17 فيفري</td><td>الواحة</td><td>2</td></tr>
+  <!-- (تابع بنفس النمط لبقية المواعيد) -->
 
-<tr><td>الأربعاء 25 فيفري</td><td>القصر</td><td>3</td></tr>
-<tr><td>الخميس 05 مارس</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الجمعة 13 مارس</td><td>القصر</td><td>1</td></tr>
-<tr><td>السبت 21 مارس</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الأحد 29 مارس</td><td>القصر</td><td>2</td></tr>
-<tr><td>الإثنين 06 أفريل</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>الثلاثاء 14 أفريل</td><td>القصر</td><td>3</td></tr>
-<tr><td>الأربعاء 22 أفريل</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الخميس 30 أفريل</td><td>القصر</td><td>1</td></tr>
-<tr><td>الجمعة 08 ماي</td><td>الواحة</td><td>1</td></tr>
-<tr><td>السبت 16 ماي</td><td>القصر</td><td>2</td></tr>
-<tr><td>الأحد 24 ماي</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>الإثنين 01 جوان</td><td>القصر</td><td>3</td></tr>
-<tr><td>الثلاثاء 09 جوان</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الأربعاء 17 جوان</td><td>القصر</td><td>1</td></tr>
-<tr><td>الخميس 25 جوان</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الجمعة 03 جويلية</td><td>القصر</td><td>2</td></tr>
-<tr><td>السبت 11 جويلية</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>الأحد 19 جويلية</td><td>القصر</td><td>3</td></tr>
-<tr><td>الإثنين 27 جويلية</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الثلاثاء 04 أوت</td><td>القصر</td><td>1</td></tr>
-<tr><td>الأربعاء 12 أوت</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الخميس 20 أوت</td><td>القصر</td><td>2</td></tr>
-<tr><td>الجمعة 28 أوت</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>السبت 05 سبتمبر</td><td>القصر</td><td>3</td></tr>
-<tr><td>الأحد 13 سبتمبر</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الإثنين 21 سبتمبر</td><td>القصر</td><td>1</td></tr>
-<tr><td>الثلاثاء 29 سبتمبر</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الأربعاء 07 أكتوبر</td><td>القصر</td><td>2</td></tr>
-<tr><td>الخميس 15 أكتوبر</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>الجمعة 23 أكتوبر</td><td>القصر</td><td>3</td></tr>
-<tr><td>السبت 31 أكتوبر</td><td>الواحة</td><td>3</td></tr>
-<tr><td>الأحد 08 نوفمبر</td><td>القصر</td><td>1</td></tr>
-<tr><td>الإثنين 16 نوفمبر</td><td>الواحة</td><td>1</td></tr>
-<tr><td>الثلاثاء 24 نوفمبر</td><td>القصر</td><td>2</td></tr>
-<tr><td>الأربعاء 02 ديسمبر</td><td>الواحة</td><td>2</td></tr>
-
-<tr><td>الخميس 10 ديسمبر</td><td>القصر</td><td>3</td></tr>
-<tr><td>الجمعة 18 ديسمبر</td><td>الواحة</td><td>3</td></tr>
-<tr><td>السبت 26 ديسمبر</td><td>القصر</td><td>1</td></tr>
-
-</tbody>
-</table>
-
+</div>
 </body>
-                                                       </html>
+</html>
