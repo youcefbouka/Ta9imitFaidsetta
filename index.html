@@ -4,116 +4,79 @@
 <meta charset="UTF-8">
 <title>مواعيد 2026</title>
 <style>
-  :root{
-    --bg:#f7f9fc;
-    --card:#ffffff;
-    --border:#cbd5e1;
-    --date:#0f766e;
-    --place:#1d4ed8;
-    --unit:#7c2d12;
-    --odd:#e2e8f0;
-    --even:#ffffff;
-  }
-  body{
+  body {
     margin:0;
-    background:var(--bg);
+    padding:20px;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    color:#111827;
+    background:#f0f4f8;
   }
-  .wrap{
-    max-width:900px;
-    margin:32px auto;
-    padding:0 16px 48px;
-  }
-  h1{
+  h1 {
     text-align:center;
-    margin:24px 0 16px;
+    margin-bottom:20px;
     color:#1f2937;
   }
-  .legend{
-    display:grid;
-    grid-template-columns: 1.6fr .8fr .6fr;
-    gap:12px;
-    font-size:16px;
-    font-weight:bold;
-    text-align:center;
-    margin-bottom:16px;
-  }
-  .row{
-    display:grid;
-    grid-template-columns: 1.6fr .8fr .6fr;
-    gap:12px;
-    align-items:center;
-    padding:12px 0;
-    margin:6px 0;
-    background:var(--card);
-    border:2px solid var(--border);
-    border-radius:10px;
-    font-size:18px; /* حجم أكبر */
-  }
-  .row:nth-child(odd){ background:var(--odd); }
-  .row:nth-child(even){ background:var(--even); }
-
-  .cell{
+  .row {
     display:flex;
-    justify-content:center;
-    align-items:center;
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:10px 0;
-    min-height:50px;
-    font-weight:600;
+    flex-direction:row;
+    margin-bottom:12px;
+    border-radius:10px;
+    overflow:hidden;
   }
-  .date{ color:var(--date); }
-  .place{ color:var(--place); }
-  .unit{ color:var(--unit); font-size:20px; }
-
-  @media print{
-    body{ background:#fff; }
-    .row{ page-break-inside:avoid; }
+  .cell {
+    flex:1;
+    padding:16px 8px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:white;
+    min-height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .date { background:#16a34a; }     /* أخضر */
+  .place { background:#2563eb; }    /* أزرق */
+  .unit { background:#dc2626; }     /* أحمر */
+  @media(max-width:480px){
+    .cell { font-size:20px; padding:12px 4px; min-height:50px; }
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <h1>مواعيد سنة 2026</h1>
+<h1>مواعيد سنة 2026</h1>
 
-  <div class="legend">
-    <div>التاريخ</div>
-    <div>المكان</div>
-    <div>الواحدة</div>
-  </div>
-
-  <!-- الصفوف -->
-  <div class="row">
-    <div class="cell date">الخميس 08 جانفي</div>
-    <div class="cell place">القصر</div>
-    <div class="cell unit">3</div>
-  </div>
-  <div class="row">
-    <div class="cell date">الجمعة 16 جانفي</div>
-    <div class="cell place">الواحة</div>
-    <div class="cell unit">3</div>
-  </div>
-  <div class="row">
-    <div class="cell date">السبت 24 جانفي</div>
-    <div class="cell place">القصر</div>
-    <div class="cell unit">1</div>
-  </div>
-  <div class="row">
-    <div class="cell date">الأحد 01 فيفري</div>
-    <div class="cell place">الواحة</div>
-    <div class="cell unit">1</div>
-  </div>
-  <div class="row">
-    <div class="cell date">الإثنين 09 فيفري</div>
-    <div class="cell place">القصر</div>
-    <div class="cell unit">2</div>
-  </div>
-
-  <!-- باقي الصفوف تباعاً بنفس النمط -->
-
+<div class="row">
+  <div class="cell date">الخميس 08 جانفي</div>
+  <div class="cell place">القصر</div>
+  <div class="cell unit">3</div>
 </div>
+
+<div class="row">
+  <div class="cell date">الجمعة 16 جانفي</div>
+  <div class="cell place">الواحة</div>
+  <div class="cell unit">3</div>
+</div>
+
+<div class="row">
+  <div class="cell date">السبت 24 جانفي</div>
+  <div class="cell place">القصر</div>
+  <div class="cell unit">1</div>
+</div>
+
+<div class="row">
+  <div class="cell date">الأحد 01 فيفري</div>
+  <div class="cell place">الواحة</div>
+  <div class="cell unit">1</div>
+</div>
+
+<div class="row">
+  <div class="cell date">الإثنين 09 فيفري</div>
+  <div class="cell place">القصر</div>
+  <div class="cell unit">2</div>
+</div>
+
+<!-- استمر بنفس النمط لجميع المواعيد -->
+
 </body>
-</html>
+</html> 
