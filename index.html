@@ -10,7 +10,8 @@
     --row-odd: #ffffff;
     --row-even: #f0f4f8;
     --date-bg: #4ade80;
-    --place-bg: #60a5fa;
+    --qasr-bg: #10b981;
+    --waha-bg: #3b82f6;
     --unit-bg: #f87171;
     --text: #ffffff;
     --highlight: #fbbf24;
@@ -37,14 +38,8 @@
 
   h1 {
     font-size: 32px;
-    margin-bottom: 8px;
+    margin-bottom: 25px;
     color: #1f2937;
-  }
-
-  .subtitle {
-    font-size: 18px;
-    color: #6b7280;
-    margin-bottom: 20px;
   }
 
   .next-appointment {
@@ -52,7 +47,7 @@
     color: white;
     padding: 20px;
     border-radius: 12px;
-    margin: 25px auto;
+    margin: 0 auto 30px;
     max-width: 600px;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
   }
@@ -65,28 +60,28 @@
 
   .next-details {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .next-item {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 12px 20px;
-    border-radius: 10px;
-    text-align: center;
-    min-width: 150px;
-  }
-
-  .next-value {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
   }
 
   .next-label {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
     opacity: 0.9;
+  }
+
+  .next-value {
+    font-size: 18px;
+    font-weight: bold;
   }
 
   .filters {
@@ -190,9 +185,16 @@
     background: linear-gradient(120deg, #4ade80, #22c55e);
   }
 
+  .place.qasr {
+    background: linear-gradient(120deg, #10b981, #059669);
+  }
+
+  .place.waha {
+    background: linear-gradient(120deg, #3b82f6, #2563eb);
+  }
+
   .place {
     flex: 1;
-    background: linear-gradient(120deg, #60a5fa, #3b82f6);
   }
 
   .unit {
@@ -266,12 +268,12 @@
     
     .next-details {
       flex-direction: column;
-      align-items: center;
     }
     
     .next-item {
-      width: 100%;
-      max-width: 250px;
+      flex-direction: column;
+      gap: 5px;
+      text-align: center;
     }
     
     .filters, .date-filter {
@@ -313,22 +315,21 @@
 
 <header>
   <h1>مواعيد سنة 2026</h1>
-  <div class="subtitle">جدول المواعيد الشهرية للعام 2026</div>
   
   <div class="next-appointment">
     <h3>الموعد القادم</h3>
     <div class="next-details">
       <div class="next-item">
+        <div class="next-label">التاريخ:</div>
         <div class="next-value" id="nextDate">جارٍ التحميل...</div>
-        <div class="next-label">التاريخ</div>
       </div>
       <div class="next-item">
+        <div class="next-label">المكان:</div>
         <div class="next-value" id="nextPlace">جارٍ التحميل...</div>
-        <div class="next-label">المكان</div>
       </div>
       <div class="next-item">
+        <div class="next-label">تقيميت:</div>
         <div class="next-value" id="nextUnit">جارٍ التحميل...</div>
-        <div class="next-label">التقيميت</div>
       </div>
     </div>
   </div>
@@ -339,8 +340,6 @@
 
   <div class="filters">
     <button class="filter-btn active" data-filter="all">جميع المواعيد</button>
-    <button class="filter-btn" data-filter="القصر">القصر فقط</button>
-    <button class="filter-btn" data-filter="الواحة">الواحة فقط</button>
     <button class="filter-btn" data-filter="upcoming">المواعيد القادمة فقط</button>
   </div>
 
@@ -373,8 +372,12 @@
       <div class="legend-text">التاريخ</div>
     </div>
     <div class="legend-item">
-      <div class="legend-color" style="background: linear-gradient(120deg, #60a5fa, #3b82f6);"></div>
-      <div class="legend-text">المكان</div>
+      <div class="legend-color" style="background: linear-gradient(120deg, #10b981, #059669);"></div>
+      <div class="legend-text">القصر</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: linear-gradient(120deg, #3b82f6, #2563eb);"></div>
+      <div class="legend-text">الواحة</div>
     </div>
     <div class="legend-item">
       <div class="legend-color" style="background: linear-gradient(120deg, #f87171, #ef4444);"></div>
@@ -542,7 +545,8 @@
       row.setAttribute('data-unit', appointment.unit);
       
       // التحقق مما إذا كان الموعد قد مضى
-      if (isPastAppointment(appointment.date)) {
+      const isPast = isPastAppointment(appointment.date);
+      if (isPast) {
         row.classList.add('past');
       }
       
@@ -558,9 +562,12 @@
         row.setAttribute('data-month', monthNames[monthMatch[1]] || '');
       }
       
+      // تحديد لون المكان
+      const placeClass = appointment.place === "القصر" ? "qasr" : "waha";
+      
       row.innerHTML = `
         <div class="cell date">${appointment.date}</div>
-        <div class="cell place">${appointment.place}</div>
+        <div class="cell place ${placeClass}">${appointment.place}</div>
         <div class="cell unit">${appointment.unit}</div>
       `;
       
@@ -570,7 +577,7 @@
 
   // إعداد مستمعي الأحداث
   function setupEventListeners() {
-    // فلترة حسب المكان أو المواعيد القادمة
+    // فلترة حسب المواعيد القادمة
     filterButtons.forEach(button => {
       button.addEventListener('click', function() {
         // إزالة النشاط من جميع الأزرار
@@ -618,11 +625,9 @@
     
     let filteredAppointments = [...appointments];
     
-    // تطبيق فلترة المكان أو المواعيد القادمة
+    // تطبيق فلترة المواعيد القادمة
     if (activeFilter !== 'all') {
-      if (activeFilter === 'القصر' || activeFilter === 'الواحة') {
-        filteredAppointments = filteredAppointments.filter(app => app.place === activeFilter);
-      } else if (activeFilter === 'upcoming') {
+      if (activeFilter === 'upcoming') {
         filteredAppointments = filteredAppointments.filter(app => !isPastAppointment(app.date));
       }
     }
@@ -649,4 +654,4 @@
 </script>
 
 </body>
-</html>
+  </html> 
