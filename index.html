@@ -12,7 +12,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a365d 0%, #2d547d 100%);
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@
   }
 
   .password-container {
-    background: white;
+    background: #ecf0f1;
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -36,13 +36,13 @@
   }
 
   .password-container h2 {
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 10px;
     font-size: 28px;
   }
 
   .password-container p {
-    color: #666;
+    color: #7f8c8d;
     margin-bottom: 30px;
     font-size: 16px;
   }
@@ -51,20 +51,21 @@
     width: 100%;
     padding: 15px;
     font-size: 18px;
-    border: 2px solid #ddd;
+    border: 2px solid #bdc3c7;
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: center;
     transition: border-color 0.3s;
+    background: #ffffff;
   }
 
   .password-input:focus {
-    border-color: #667eea;
+    border-color: #3498db;
     outline: none;
   }
 
   .password-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -77,7 +78,7 @@
 
   .password-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
   }
 
   .error-message {
@@ -92,19 +93,19 @@
     display: none;
   }
 
-  /* ===== أنماط الصفحة الرئيسية (بالتنسيق السابق) ===== */
+  /* ===== أنماط الصفحة الرئيسية ===== */
   :root {
-    --bg: #f5f5f5;
+    --bg: #f8f9fa;
     --row-odd: #ffffff;
-    --row-even: #f0f4f8;
-    --date-bg: #4ade80;
-    --qasr-bg: #10b981;
-    --waha-bg: #3b82f6;
-    --unit-bg: #f87171;
+    --row-even: #f1f8ff;
+    --date-bg: #2ecc71;
+    --qasr-bg: #9b59b6;
+    --waha-bg: #3498db;
+    --unit-bg: #e74c3c;
     --text: #ffffff;
-    --highlight: #fbbf24;
+    --highlight: #f1c40f;
     --shadow: rgba(0, 0, 0, 0.1);
-    --next-bg: #8b5cf6;
+    --next-bg: #34495e;
   }
 
   body {
@@ -112,7 +113,7 @@
     padding: 20px;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     background: var(--bg);
-    color: #111827;
+    color: #2c3e50;
     max-width: 1000px;
     margin: 0 auto;
   }
@@ -121,23 +122,23 @@
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid #e0e6ed;
   }
 
   h1 {
     font-size: 32px;
     margin-bottom: 25px;
-    color: #1f2937;
+    color: #2c3e50;
   }
 
   .next-appointment {
-    background: linear-gradient(120deg, #8b5cf6, #7c3aed);
+    background: linear-gradient(120deg, #34495e, #2c3e50);
     color: white;
     padding: 20px;
     border-radius: 12px;
     margin: 0 auto 30px;
     max-width: 600px;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(52, 73, 94, 0.3);
   }
 
   .next-appointment h3 {
@@ -198,7 +199,7 @@
   }
 
   .filter-btn.active {
-    background: #3b82f6;
+    background: #3498db;
     color: white;
   }
 
@@ -213,7 +214,7 @@
 
   .date-filter label {
     font-weight: 600;
-    color: #374151;
+    color: #2c3e50;
   }
 
   .date-filter select {
@@ -270,15 +271,15 @@
 
   .date {
     flex: 1.5;
-    background: linear-gradient(120deg, #4ade80, #22c55e);
+    background: linear-gradient(120deg, #2ecc71, #27ae60);
   }
 
   .place.qasr {
-    background: linear-gradient(120deg, #10b981, #059669);
+    background: linear-gradient(120deg, #9b59b6, #8e44ad);
   }
 
   .place.waha {
-    background: linear-gradient(120deg, #3b82f6, #2563eb);
+    background: linear-gradient(120deg, #3498db, #2980b9);
   }
 
   .place {
@@ -287,7 +288,7 @@
 
   .unit {
     flex: 0 0 70px;
-    background: linear-gradient(120deg, #f87171, #ef4444);
+    background: linear-gradient(120deg, #e74c3c, #c0392b);
     border-radius: 8px;
     font-size: 24px;
   }
@@ -298,7 +299,7 @@
     gap: 30px;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 2px solid #e5e7eb;
+    border-top: 2px solid #e0e6ed;
     flex-wrap: wrap;
   }
 
@@ -320,7 +321,7 @@
   }
 
   .today-info {
-    background: linear-gradient(120deg, #fbbf24, #f59e0b);
+    background: linear-gradient(120deg, #f1c40f, #f39c12);
     color: white;
     padding: 15px;
     border-radius: 10px;
@@ -338,9 +339,9 @@
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
-    color: #6b7280;
+    color: #7f8c8d;
     font-size: 14px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #e0e6ed;
   }
 
   @media (max-width: 768px) {
@@ -474,19 +475,19 @@
 
     <div class="legend">
       <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #4ade80, #22c55e);"></div>
+        <div class="legend-color" style="background: linear-gradient(120deg, #2ecc71, #27ae60);"></div>
         <div class="legend-text">التاريخ</div>
       </div>
       <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #10b981, #059669);"></div>
+        <div class="legend-color" style="background: linear-gradient(120deg, #9b59b6, #8e44ad);"></div>
         <div class="legend-text">القصر</div>
       </div>
       <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #3b82f6, #2563eb);"></div>
+        <div class="legend-color" style="background: linear-gradient(120deg, #3498db, #2980b9);"></div>
         <div class="legend-text">الواحة</div>
       </div>
       <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #f87171, #ef4444);"></div>
+        <div class="legend-color" style="background: linear-gradient(120deg, #e74c3c, #c0392b);"></div>
         <div class="legend-text">التقيميت</div>
       </div>
     </div>
@@ -718,7 +719,7 @@
     appointmentsContainer.innerHTML = '';
     
     if (appointmentsToRender.length === 0) {
-      appointmentsContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: #6b7280; font-size: 18px;">لا توجد مواعيد مطابقة للبحث</div>';
+      appointmentsContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: #7f8c8d; font-size: 18px;">لا توجد مواعيد مطابقة للبحث</div>';
       return;
     }
     
