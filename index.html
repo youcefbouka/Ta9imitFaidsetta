@@ -403,6 +403,115 @@
       font-size: 18px;
     }
   }
+
+  /* ===== أنماط الطباعة على A4 عمودي بعمودين ===== */
+  @media print {
+    /* إخفاء العناصر غير الضرورية */
+    #passwordPage,
+    .filters,
+    .date-filter,
+    .legend,
+    footer,
+    .today-info,
+    .next-appointment,
+    .filter-btn,
+    .password-container {
+      display: none !important;
+    }
+
+    /* إظهار المحتوى الرئيسي */
+    #mainContent {
+      display: block !important;
+    }
+
+    /* تنسيق الصفحة */
+    body {
+      background: white;
+      color: black;
+      font-size: 12pt;
+      padding: 0.2in;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 18pt;
+      margin-bottom: 15px;
+      color: #000;
+    }
+
+    /* حاوية المواعيد بعمودين */
+    #appointmentsContainer {
+      column-count: 2;
+      column-gap: 20px;
+    }
+
+    /* تنسيق كل صف (موعد) */
+    .row {
+      display: flex;
+      flex-direction: row;
+      break-inside: avoid;        /* منع قطع الصف بين عمودين */
+      page-break-inside: avoid;
+      margin-bottom: 8px;
+      background: #f9f9f9 !important;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      box-shadow: none !important;
+      transition: none;
+    }
+
+    .row:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* الخلايا داخل الصف */
+    .cell {
+      color: black !important;
+      background: none !important;   /* إزالة التدرجات */
+      font-weight: normal;
+      padding: 6px 4px;
+      font-size: 11pt;
+    }
+
+    /* إضافة خلفيات خفيفة للتمييز (اختياري) */
+    .date {
+      background: #e0e0e0 !important;
+    }
+    .place.qasr {
+      background: #e1c6f0 !important;  /* بنفسجي فاتح */
+    }
+    .place.waha {
+      background: #c6e0f0 !important;    /* أزرق فاتح */
+    }
+    .unit {
+      background: #f5c6c6 !important;    /* أحمر فاتح */
+    }
+
+    /* ضبط عرض الخلايا للطباعة */
+    .date {
+      flex: 1.5;
+    }
+    .place {
+      flex: 1;
+    }
+    .unit {
+      flex: 0 0 50px;
+    }
+
+    /* إزالة تأثيرات odd/even */
+    .row:nth-child(odd),
+    .row:nth-child(even) {
+      background: #f9f9f9 !important;
+    }
+
+    /* إزالة الظلال والحواف الدائرية الزائدة */
+    * {
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -507,31 +616,24 @@
   const passwordBtn = document.getElementById('passwordBtn');
   const passwordError = document.getElementById('passwordError');
 
-  // التحقق من كلمة المرور
   function checkPassword() {
     const enteredPassword = passwordInput.value.trim();
     
     if (enteredPassword === CORRECT_PASSWORD) {
-      // كلمة المرور صحيحة
       passwordError.textContent = "";
       passwordPage.classList.add('hidden');
       
-      // إظهار المحتوى الرئيسي بعد تأخير بسيط
       setTimeout(() => {
         mainContent.style.display = 'block';
-        // تهيئة التطبيق بعد الدخول
         initApp();
       }, 500);
       
-      // حفظ حالة الدخول في localStorage
       localStorage.setItem('appointmentAccess', 'granted');
     } else {
-      // كلمة المرور خاطئة
       passwordError.textContent = "كلمة المرور غير صحيحة. حاول مرة أخرى.";
       passwordInput.value = "";
       passwordInput.focus();
       
-      // تأثير اهتزاز
       passwordPage.style.animation = 'shake 0.5s';
       setTimeout(() => {
         passwordPage.style.animation = '';
@@ -539,7 +641,6 @@
     }
   }
 
-  // إضافة تأثير اهتزاز
   const style = document.createElement('style');
   style.textContent = `
     @keyframes shake {
@@ -550,25 +651,19 @@
   `;
   document.head.appendChild(style);
 
-  // التحقق من الضغط على Enter في حقل كلمة المرور
   passwordInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       checkPassword();
     }
   });
 
-  // حدث النقر على زر الدخول
   passwordBtn.addEventListener('click', checkPassword);
-
-  // التركيز على حقل كلمة المرور عند تحميل الصفحة
   passwordInput.focus();
 
-  // التحقق مما إذا كان المستخدم قد سجل الدخول مسبقاً
   function checkPreviousLogin() {
     const hasAccess = localStorage.getItem('appointmentAccess');
     
     if (hasAccess === 'granted') {
-      // إذا كان قد سجل الدخول مسبقاً، نعرض المحتوى مباشرة
       passwordPage.style.display = 'none';
       mainContent.style.display = 'block';
       initApp();
@@ -576,7 +671,6 @@
   }
 
   // ================ التطبيق الرئيسي ================
-  // بيانات المواعيد
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
     { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
@@ -625,10 +719,8 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  // عناصر DOM
   let appointmentsContainer, filterButtons, monthFilter, todayInfo, nextDateEl, nextPlaceEl, nextUnitEl;
 
-  // تهيئة التطبيق
   function initApp() {
     appointmentsContainer = document.getElementById('appointmentsContainer');
     filterButtons = document.querySelectorAll('.filter-btn');
@@ -643,7 +735,6 @@
     setupEventListeners();
   }
 
-  // تحويل التاريخ العربي إلى كائن Date
   function parseArabicDate(dateStr) {
     const monthNames = {
       "جانفي": 0, "فيفري": 1, "مارس": 2, "أفريل": 3, 
@@ -656,51 +747,41 @@
     const monthName = parts[2];
     const month = monthNames[monthName];
     
-    // سنة افتراضية 2026
     return new Date(2026, month, day);
   }
 
-  // التحقق مما إذا كان الموعد قد مضى
   function isPastAppointment(dateStr) {
     const appointmentDate = parseArabicDate(dateStr);
     const today = new Date();
-    
     const currentYear = today.getFullYear();
     
     if (currentYear < 2026) {
-      return false; // جميع مواعيد 2026 لم تأت بعد
+      return false;
     } else if (currentYear > 2026) {
-      return true; // جميع مواعيد 2026 قد مضت
+      return true;
     } else {
-      // نفس السنة
       return appointmentDate < today;
     }
   }
 
-  // تحديث معلومات الموعد القادم
   function updateNextAppointment() {
     const now = new Date();
     const currentYear = now.getFullYear();
     
     let nextAppointment = null;
     
-    // البحث عن أول موعد قادم
     for (const appointment of appointments) {
       const appointmentDate = parseArabicDate(appointment.date);
       
-      // إذا كنا في سنة أقل من 2026، فالموعد الأول هو القادم
       if (currentYear < 2026) {
         nextAppointment = appointment;
         break;
-      }
-      // إذا كنا في سنة 2026، نبحث عن أول موعد بعد اليوم
-      else if (currentYear === 2026) {
+      } else if (currentYear === 2026) {
         if (appointmentDate >= now) {
           nextAppointment = appointment;
           break;
         }
       }
-      // إذا كنا في سنة أكبر من 2026، لا توجد مواعيد قادمة
     }
     
     if (nextAppointment) {
@@ -714,7 +795,6 @@
     }
   }
 
-  // عرض المواعيد
   function renderAppointments(appointmentsToRender) {
     appointmentsContainer.innerHTML = '';
     
@@ -729,13 +809,11 @@
       row.setAttribute('data-place', appointment.place);
       row.setAttribute('data-unit', appointment.unit);
       
-      // التحقق مما إذا كان الموعد قد مضى
       const isPast = isPastAppointment(appointment.date);
       if (isPast) {
         row.classList.add('past');
       }
       
-      // استخراج الشهر من التاريخ
       const monthMatch = appointment.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
       if (monthMatch) {
         const monthNames = {
@@ -747,7 +825,6 @@
         row.setAttribute('data-month', monthNames[monthMatch[1]] || '');
       }
       
-      // تحديد لون المكان
       const placeClass = appointment.place === "القصر" ? "qasr" : "waha";
       
       row.innerHTML = `
@@ -760,34 +837,23 @@
     });
   }
 
-  // إعداد مستمعي الأحداث
   function setupEventListeners() {
-    // فلترة حسب المواعيد القادمة
     filterButtons.forEach(button => {
       button.addEventListener('click', function() {
-        // إزالة النشاط من جميع الأزرار
         filterButtons.forEach(btn => btn.classList.remove('active'));
-        // إضافة النشاط للزر المحدد
         this.classList.add('active');
-        
-        // تطبيق الفلترة
         applyFilters();
       });
     });
     
-    // فلترة حسب الشهر
     monthFilter.addEventListener('change', applyFilters);
     
-    // إضافة تفاعل النقر على الصفوف
     document.addEventListener('click', function(e) {
       const row = e.target.closest('.row');
       if (row) {
-        // إزالة التمييز من جميع الصفوف
         document.querySelectorAll('.row').forEach(r => r.classList.remove('highlighted'));
-        // تمييز الصف المحدد
         row.classList.add('highlighted');
         
-        // عرض تفاصيل الموعد
         const date = row.querySelector('.date').textContent;
         const place = row.querySelector('.place').textContent;
         const unit = row.querySelector('.unit').textContent;
@@ -795,7 +861,6 @@
         todayInfo.textContent = `الموعد المحدد: ${date} في ${place} - التقيميت ${unit}`;
         todayInfo.classList.add('show');
         
-        // إخفاء الرسالة بعد 3 ثوانٍ
         setTimeout(() => {
           todayInfo.classList.remove('show');
         }, 3000);
@@ -803,21 +868,18 @@
     });
   }
 
-  // تطبيق الفلاتر
   function applyFilters() {
     const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
     const selectedMonth = monthFilter.value;
     
     let filteredAppointments = [...appointments];
     
-    // تطبيق فلترة المواعيد القادمة
     if (activeFilter !== 'all') {
       if (activeFilter === 'upcoming') {
         filteredAppointments = filteredAppointments.filter(app => !isPastAppointment(app.date));
       }
     }
     
-    // تطبيق فلترة الشهر
     if (selectedMonth !== 'all') {
       filteredAppointments = filteredAppointments.filter(app => {
         const monthMatch = app.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
@@ -837,8 +899,7 @@
     renderAppointments(filteredAppointments);
   }
 
-  // التحقق من الدخول السابق
   checkPreviousLogin();
 </script>
 </body>
-</html>
+  </html>
