@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>مواعيد 2026 - A6 عمودي</title>
 <style>
-  /* تعريف الصفحة A6 عمودية بهوامش 1 سم من جميع الجهات */
   @page {
     size: A6 portrait;
     margin: 1cm;
@@ -17,31 +16,28 @@
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
   }
 
-  /* كل صفحة تحتوي على عنوان وقائمة عمودية */
   .page {
-    page-break-after: always;  /* كل صفحة تبدأ جديدة */
+    page-break-after: always;
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 100vh;         /* لملء الصفحة عمودياً */
+    min-height: 100vh;
   }
 
   h1 {
     text-align: center;
     font-size: 14pt;
-    margin: 0 0 0.8cm 0;       /* مسافة تحت العنوان */
+    margin: 0 0 0.8cm 0;
     color: #2c3e50;
   }
 
-  /* حاوية المواعيد عمودية */
   .appointments-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;                   /* مسافة بين الصفوف */
+    gap: 6px;
     flex: 1;
   }
 
-  /* كل موعد (صف) */
   .appointment-row {
     display: flex;
     flex-direction: row;
@@ -51,7 +47,7 @@
 
   .cell {
     padding: 4px 2px;
-    font-size: 9pt;             /* حجم خط مناسب لـ A6 */
+    font-size: 9pt;
     font-weight: bold;
     text-align: center;
     color: white;
@@ -59,7 +55,7 @@
 
   .date {
     flex: 1.5;
-    background: #2ecc71;        /* أخضر */
+    background: #2ecc71;
   }
 
   .place {
@@ -67,31 +63,27 @@
   }
 
   .place.qasr {
-    background: #9b59b6;        /* بنفسجي */
+    background: #9b59b6;
   }
 
   .place.waha {
-    background: #3498db;        /* أزرق */
+    background: #3498db;
   }
 
   .unit {
-    flex: 0 0 50px;             /* عرض ثابت للوحدة */
-    background: #e74c3c;        /* أحمر */
+    flex: 0 0 50px;
+    background: #e74c3c;
   }
 
-  /* إزالة تأثير الصفحة الأخيرة */
   .page:last-child {
     page-break-after: auto;
   }
 </style>
 </head>
 <body>
-
-<!-- سيتم إنشاء 4 صفحات ديناميكياً عبر JavaScript -->
 <div id="pages-container"></div>
 
 <script>
-  // قائمة المواعيد (46 موعداً)
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
     { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
@@ -140,7 +132,6 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  // دالة لإنشاء صف موعد
   function createAppointmentRow(app) {
     const row = document.createElement('div');
     row.className = 'appointment-row';
@@ -156,23 +147,16 @@
   // تقسيم المواعيد إلى 4 صفحات (12+12+11+11)
   const page1Apps = appointments.slice(0, 12);
   const page2Apps = appointments.slice(12, 24);
-  const page3Apps = appointments.slice(24, 35); // 11 موعداً
-  const page4Apps = appointments.slice(35, 46); // 11 موعداً
+  const page3Apps = appointments.slice(24, 35); // 11
+  const page4Apps = appointments.slice(35, 46); // 11
 
-  // حاوية الصفحات
   const container = document.getElementById('pages-container');
 
-  // دالة لإنشاء صفحة معينة
-  function createPage(appsList) {
+  // دالة لإنشاء صفحة (بدون عنوان)
+  function createPageWithoutTitle(appsList) {
     const pageDiv = document.createElement('div');
     pageDiv.className = 'page';
 
-    // العنوان
-    const title = document.createElement('h1');
-    title.textContent = 'مواعيد سنة 2026';
-    pageDiv.appendChild(title);
-
-    // قائمة المواعيد
     const listDiv = document.createElement('div');
     listDiv.className = 'appointments-list';
     appsList.forEach(app => {
@@ -183,12 +167,22 @@
     return pageDiv;
   }
 
-  // إضافة الصفحات الأربع
-  container.appendChild(createPage(page1Apps));
-  container.appendChild(createPage(page2Apps));
-  container.appendChild(createPage(page3Apps));
-  container.appendChild(createPage(page4Apps));
-</script>
+  // إنشاء الصفحة الأولى مع العنوان
+  const firstPage = document.createElement('div');
+  firstPage.className = 'page';
+  const title = document.createElement('h1');
+  title.textContent = 'مواعيد سنة 2026';
+  firstPage.appendChild(title);
+  const listDiv1 = document.createElement('div');
+  listDiv1.className = 'appointments-list';
+  page1Apps.forEach(app => listDiv1.appendChild(createAppointmentRow(app)));
+  firstPage.appendChild(listDiv1);
+  container.appendChild(firstPage);
 
+  // الصفحات الأخرى بدون عنوان
+  container.appendChild(createPageWithoutTitle(page2Apps));
+  container.appendChild(createPageWithoutTitle(page3Apps));
+  container.appendChild(createPageWithoutTitle(page4Apps));
+</script>
 </body>
 </html> 
