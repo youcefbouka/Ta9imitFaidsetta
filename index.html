@@ -3,674 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مواعيد سنة 2026</title>
+<title>مواعيد 2026 - نسخة للطباعة</title>
 <style>
-  /* ===== صفحة المصادقة ===== */
-  #passwordPage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
-  }
-
-  #passwordPage.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .password-container {
-    background: #ecf0f1;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-  }
-
-  .password-container h2 {
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-size: 28px;
-  }
-
-  .password-container p {
-    color: #7f8c8d;
-    margin-bottom: 30px;
-    font-size: 16px;
-  }
-
-  .password-input {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    border: 2px solid #bdc3c7;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: border-color 0.3s;
-    background: #ffffff;
-  }
-
-  .password-input:focus {
-    border-color: #3498db;
-    outline: none;
-  }
-
-  .password-btn {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .password-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.4);
-  }
-
-  .error-message {
-    color: #e74c3c;
-    margin-top: 15px;
-    font-size: 14px;
-    min-height: 20px;
-  }
-
-  /* ===== إخفاء المحتوى الرئيسي ===== */
-  #mainContent {
-    display: none;
-  }
-
-  /* ===== أنماط الصفحة الرئيسية ===== */
-  :root {
-    --bg: #f8f9fa;
-    --row-odd: #ffffff;
-    --row-even: #f1f8ff;
-    --date-bg: #2ecc71;
-    --qasr-bg: #9b59b6;
-    --waha-bg: #3498db;
-    --unit-bg: #e74c3c;
-    --text: #ffffff;
-    --highlight: #f1c40f;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --next-bg: #34495e;
-  }
-
   body {
-    margin: 0;
-    padding: 20px;
-    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    background: var(--bg);
-    color: #2c3e50;
+    margin: 0.5in auto;
+    padding: 0;
     max-width: 1000px;
-    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: white;
+    color: black;
   }
-
-  header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e0e6ed;
-  }
-
   h1 {
-    font-size: 32px;
-    margin-bottom: 25px;
-    color: #2c3e50;
-  }
-
-  .next-appointment {
-    background: linear-gradient(120deg, #34495e, #2c3e50);
-    color: white;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 0 auto 30px;
-    max-width: 600px;
-    box-shadow: 0 4px 12px rgba(52, 73, 94, 0.3);
-  }
-
-  .next-appointment h3 {
-    margin: 0 0 15px 0;
-    font-size: 24px;
     text-align: center;
-  }
-
-  .next-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .next-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-  }
-
-  .next-label {
-    font-size: 16px;
-    font-weight: 600;
-    opacity: 0.9;
-  }
-
-  .next-value {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .filters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-  }
-
-  .filter-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50px;
-    background: white;
-    color: #4b5563;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 2px 5px var(--shadow);
-  }
-
-  .filter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow);
-  }
-
-  .filter-btn.active {
-    background: #3498db;
-    color: white;
-  }
-
-  .date-filter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-  }
-
-  .date-filter label {
-    font-weight: 600;
+    font-size: 24pt;
+    margin-bottom: 20px;
     color: #2c3e50;
   }
-
-  .date-filter select {
-    padding: 8px 15px;
-    border-radius: 8px;
-    border: 1px solid #d1d5db;
-    background: white;
-    font-size: 16px;
-    cursor: pointer;
+  /* حاوية المواعيد بعمودين */
+  .appointments-grid {
+    column-count: 2;
+    column-gap: 30px;
   }
-
-  .row {
+  /* كل موعد (صف) */
+  .appointment-row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px var(--shadow);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    break-inside: avoid;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background-color: #f9f9f9;
   }
-
-  .row:hover {
-    transform: translateX(-5px);
-    box-shadow: 0 5px 15px var(--shadow);
-  }
-
-  .row.highlighted {
-    box-shadow: 0 0 0 3px var(--highlight);
-  }
-
-  .row.past {
-    opacity: 0.6;
-  }
-
-  .row:nth-child(odd) {
-    background: var(--row-odd);
-  }
-
-  .row:nth-child(even) {
-    background: var(--row-even);
-  }
-
   .cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: var(--text);
-    padding: 18px 10px;
-    font-size: 20px;
+    padding: 8px 6px;
+    font-size: 14px;
     text-align: center;
+    font-weight: normal;
   }
-
   .date {
     flex: 1.5;
-    background: linear-gradient(120deg, #2ecc71, #27ae60);
+    background-color: #e0f0e0;
   }
-
-  .place.qasr {
-    background: linear-gradient(120deg, #9b59b6, #8e44ad);
-  }
-
-  .place.waha {
-    background: linear-gradient(120deg, #3498db, #2980b9);
-  }
-
   .place {
     flex: 1;
   }
-
+  .place.qasr {
+    background-color: #e1c6f0; /* بنفسجي فاتح */
+  }
+  .place.waha {
+    background-color: #c6e0f0; /* أزرق فاتح */
+  }
   .unit {
     flex: 0 0 70px;
-    background: linear-gradient(120deg, #e74c3c, #c0392b);
-    border-radius: 8px;
-    font-size: 24px;
+    background-color: #f5c6c6; /* أحمر فاتح */
   }
-
-  .legend {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 2px solid #e0e6ed;
-    flex-wrap: wrap;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .legend-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-  }
-
-  .legend-text {
-    font-size: 14px;
-    color: #4b5563;
-  }
-
-  .today-info {
-    background: linear-gradient(120deg, #f1c40f, #f39c12);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    text-align: center;
-    font-weight: bold;
-    display: none;
-  }
-
-  .today-info.show {
-    display: block;
-  }
-
   footer {
+    margin-top: 30px;
     text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    color: #7f8c8d;
-    font-size: 14px;
-    border-top: 1px solid #e0e6ed;
+    font-size: 10pt;
+    color: #777;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
   }
-
-  @media (max-width: 768px) {
-    .cell {
-      font-size: 18px;
-      padding: 14px 8px;
-    }
-    
-    .unit {
-      flex: 0 0 60px;
-      font-size: 22px;
-    }
-    
-    .next-details {
-      flex-direction: column;
-    }
-    
-    .next-item {
-      flex-direction: column;
-      gap: 5px;
-      text-align: center;
-    }
-    
-    .filters, .date-filter {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .filter-btn {
-      width: 200px;
-    }
-    
-    .password-container {
-      padding: 30px 20px;
-      margin: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .cell {
-      font-size: 16px;
-      padding: 12px 6px;
-    }
-    
-    .unit {
-      flex: 0 0 50px;
-      font-size: 20px;
-    }
-    
-    h1 {
-      font-size: 26px;
-    }
-    
-    .next-appointment h3 {
-      font-size: 20px;
-    }
-    
-    .next-value {
-      font-size: 18px;
-    }
-  }
-
-  /* ===== أنماط الطباعة على A4 عمودي بعمودين ===== */
-  @media print {
-    /* إخفاء العناصر غير الضرورية */
-    #passwordPage,
-    .filters,
-    .date-filter,
-    .legend,
-    footer,
-    .today-info,
-    .next-appointment,
-    .filter-btn,
-    .password-container {
-      display: none !important;
-    }
-
-    /* إظهار المحتوى الرئيسي */
-    #mainContent {
-      display: block !important;
-    }
-
-    /* تنسيق الصفحة */
-    body {
-      background: white;
-      color: black;
-      font-size: 12pt;
-      padding: 0.2in;
-      margin: 0 auto;
-      max-width: 100%;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 18pt;
-      margin-bottom: 15px;
-      color: #000;
-    }
-
-    /* حاوية المواعيد بعمودين */
-    #appointmentsContainer {
-      column-count: 2;
-      column-gap: 20px;
-    }
-
-    /* تنسيق كل صف (موعد) */
-    .row {
-      display: flex;
-      flex-direction: row;
-      break-inside: avoid;        /* منع قطع الصف بين عمودين */
-      page-break-inside: avoid;
-      margin-bottom: 8px;
-      background: #f9f9f9 !important;
-      border: 1px solid #aaa;
-      border-radius: 4px;
-      box-shadow: none !important;
-      transition: none;
-    }
-
-    .row:hover {
-      transform: none !important;
-      box-shadow: none !important;
-    }
-
-    /* الخلايا داخل الصف */
-    .cell {
-      color: black !important;
-      background: none !important;   /* إزالة التدرجات */
-      font-weight: normal;
-      padding: 6px 4px;
-      font-size: 11pt;
-    }
-
-    /* إضافة خلفيات خفيفة للتمييز (اختياري) */
-    .date {
-      background: #e0e0e0 !important;
-    }
-    .place.qasr {
-      background: #e1c6f0 !important;  /* بنفسجي فاتح */
-    }
-    .place.waha {
-      background: #c6e0f0 !important;    /* أزرق فاتح */
-    }
-    .unit {
-      background: #f5c6c6 !important;    /* أحمر فاتح */
-    }
-
-    /* ضبط عرض الخلايا للطباعة */
-    .date {
-      flex: 1.5;
-    }
-    .place {
-      flex: 1;
-    }
-    .unit {
-      flex: 0 0 50px;
-    }
-
-    /* إزالة تأثيرات odd/even */
-    .row:nth-child(odd),
-    .row:nth-child(even) {
-      background: #f9f9f9 !important;
-    }
-
-    /* إزالة الظلال والحواف الدائرية الزائدة */
-    * {
-      box-shadow: none !important;
-      text-shadow: none !important;
+  /* للشاشات الصغيرة: عمود واحد */
+  @media (max-width: 600px) {
+    .appointments-grid {
+      column-count: 1;
     }
   }
 </style>
 </head>
 <body>
-
-<!-- صفحة إدخال كلمة المرور -->
-<div id="passwordPage">
-  <div class="password-container">
-    <h2>الدخول إلى مواعيد 2026</h2>
-    <p>الرجاء إدخال كلمة المرور للوصول إلى الجدول</p>
-    <input type="password" id="passwordInput" class="password-input" placeholder="أدخل كلمة المرور هنا" autocomplete="off">
-    <button id="passwordBtn" class="password-btn">دخول</button>
-    <div id="passwordError" class="error-message"></div>
-  </div>
-</div>
-
-<!-- المحتوى الرئيسي (مخفي في البداية) -->
-<div id="mainContent">
-  <header>
-    <h1>مواعيد سنة 2026</h1>
-    
-    <div class="next-appointment">
-      <h3>الموعد القادم</h3>
-      <div class="next-details">
-        <div class="next-item">
-          <div class="next-label">التاريخ:</div>
-          <div class="next-value" id="nextDate">جارٍ التحميل...</div>
-        </div>
-        <div class="next-item">
-          <div class="next-label">المكان:</div>
-          <div class="next-value" id="nextPlace">جارٍ التحميل...</div>
-        </div>
-        <div class="next-item">
-          <div class="next-label">تقيميت:</div>
-          <div class="next-value" id="nextUnit">جارٍ التحميل...</div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="today-info" id="todayInfo"></div>
-
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">جميع المواعيد</button>
-      <button class="filter-btn" data-filter="upcoming">المواعيد القادمة فقط</button>
-    </div>
-
-    <div class="date-filter">
-      <label for="monthFilter">تصفية حسب الشهر:</label>
-      <select id="monthFilter">
-        <option value="all">جميع الأشهر</option>
-        <option value="01">جانفي</option>
-        <option value="02">فيفري</option>
-        <option value="03">مارس</option>
-        <option value="04">أفريل</option>
-        <option value="05">ماي</option>
-        <option value="06">جوان</option>
-        <option value="07">جويلية</option>
-        <option value="08">أوت</option>
-        <option value="09">سبتمبر</option>
-        <option value="10">أكتوبر</option>
-        <option value="11">نوفمبر</option>
-        <option value="12">ديسمبر</option>
-      </select>
-    </div>
-
-    <div id="appointmentsContainer">
-      <!-- المواعيد سيتم عرضها هنا ديناميكياً -->
-    </div>
-
-    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #2ecc71, #27ae60);"></div>
-        <div class="legend-text">التاريخ</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #9b59b6, #8e44ad);"></div>
-        <div class="legend-text">القصر</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #3498db, #2980b9);"></div>
-        <div class="legend-text">الواحة</div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background: linear-gradient(120deg, #e74c3c, #c0392b);"></div>
-        <div class="legend-text">التقيميت</div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <p>جميع المواعيد محددة مسبقًا لعام 2026 | تم التحديث: ديسمبر 2025</p>
-  </footer>
-</div>
+<h1>مواعيد سنة 2026</h1>
+<div class="appointments-grid" id="appointmentsContainer"></div>
+<footer>جميع المواعيد محددة لعام 2026 | أعدت للطباعة</footer>
 
 <script>
-  // ================ نظام كلمة المرور ================
-  const CORRECT_PASSWORD = "2026";
-  const passwordPage = document.getElementById('passwordPage');
-  const mainContent = document.getElementById('mainContent');
-  const passwordInput = document.getElementById('passwordInput');
-  const passwordBtn = document.getElementById('passwordBtn');
-  const passwordError = document.getElementById('passwordError');
-
-  function checkPassword() {
-    const enteredPassword = passwordInput.value.trim();
-    
-    if (enteredPassword === CORRECT_PASSWORD) {
-      passwordError.textContent = "";
-      passwordPage.classList.add('hidden');
-      
-      setTimeout(() => {
-        mainContent.style.display = 'block';
-        initApp();
-      }, 500);
-      
-      localStorage.setItem('appointmentAccess', 'granted');
-    } else {
-      passwordError.textContent = "كلمة المرور غير صحيحة. حاول مرة أخرى.";
-      passwordInput.value = "";
-      passwordInput.focus();
-      
-      passwordPage.style.animation = 'shake 0.5s';
-      setTimeout(() => {
-        passwordPage.style.animation = '';
-      }, 500);
-    }
-  }
-
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-  `;
-  document.head.appendChild(style);
-
-  passwordInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      checkPassword();
-    }
-  });
-
-  passwordBtn.addEventListener('click', checkPassword);
-  passwordInput.focus();
-
-  function checkPreviousLogin() {
-    const hasAccess = localStorage.getItem('appointmentAccess');
-    
-    if (hasAccess === 'granted') {
-      passwordPage.style.display = 'none';
-      mainContent.style.display = 'block';
-      initApp();
-    }
-  }
-
-  // ================ التطبيق الرئيسي ================
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
     { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
@@ -719,187 +127,18 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  let appointmentsContainer, filterButtons, monthFilter, todayInfo, nextDateEl, nextPlaceEl, nextUnitEl;
-
-  function initApp() {
-    appointmentsContainer = document.getElementById('appointmentsContainer');
-    filterButtons = document.querySelectorAll('.filter-btn');
-    monthFilter = document.getElementById('monthFilter');
-    todayInfo = document.getElementById('todayInfo');
-    nextDateEl = document.getElementById('nextDate');
-    nextPlaceEl = document.getElementById('nextPlace');
-    nextUnitEl = document.getElementById('nextUnit');
-    
-    updateNextAppointment();
-    renderAppointments(appointments);
-    setupEventListeners();
-  }
-
-  function parseArabicDate(dateStr) {
-    const monthNames = {
-      "جانفي": 0, "فيفري": 1, "مارس": 2, "أفريل": 3, 
-      "ماي": 4, "جوان": 5, "جويلية": 6, "أوت": 7, 
-      "سبتمبر": 8, "أكتوبر": 9, "نوفمبر": 10, "ديسمبر": 11
-    };
-    
-    const parts = dateStr.split(' ');
-    const day = parseInt(parts[1]);
-    const monthName = parts[2];
-    const month = monthNames[monthName];
-    
-    return new Date(2026, month, day);
-  }
-
-  function isPastAppointment(dateStr) {
-    const appointmentDate = parseArabicDate(dateStr);
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    
-    if (currentYear < 2026) {
-      return false;
-    } else if (currentYear > 2026) {
-      return true;
-    } else {
-      return appointmentDate < today;
-    }
-  }
-
-  function updateNextAppointment() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    
-    let nextAppointment = null;
-    
-    for (const appointment of appointments) {
-      const appointmentDate = parseArabicDate(appointment.date);
-      
-      if (currentYear < 2026) {
-        nextAppointment = appointment;
-        break;
-      } else if (currentYear === 2026) {
-        if (appointmentDate >= now) {
-          nextAppointment = appointment;
-          break;
-        }
-      }
-    }
-    
-    if (nextAppointment) {
-      nextDateEl.textContent = nextAppointment.date;
-      nextPlaceEl.textContent = nextAppointment.place;
-      nextUnitEl.textContent = nextAppointment.unit;
-    } else {
-      nextDateEl.textContent = "لا توجد مواعيد قادمة";
-      nextPlaceEl.textContent = "-";
-      nextUnitEl.textContent = "-";
-    }
-  }
-
-  function renderAppointments(appointmentsToRender) {
-    appointmentsContainer.innerHTML = '';
-    
-    if (appointmentsToRender.length === 0) {
-      appointmentsContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: #7f8c8d; font-size: 18px;">لا توجد مواعيد مطابقة للبحث</div>';
-      return;
-    }
-    
-    appointmentsToRender.forEach(appointment => {
-      const row = document.createElement('div');
-      row.className = 'row';
-      row.setAttribute('data-place', appointment.place);
-      row.setAttribute('data-unit', appointment.unit);
-      
-      const isPast = isPastAppointment(appointment.date);
-      if (isPast) {
-        row.classList.add('past');
-      }
-      
-      const monthMatch = appointment.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
-      if (monthMatch) {
-        const monthNames = {
-          "جانفي": "01", "فيفري": "02", "مارس": "03", 
-          "أفريل": "04", "ماي": "05", "جوان": "06",
-          "جويلية": "07", "أوت": "08", "سبتمبر": "09",
-          "أكتوبر": "10", "نوفمبر": "11", "ديسمبر": "12"
-        };
-        row.setAttribute('data-month', monthNames[monthMatch[1]] || '');
-      }
-      
-      const placeClass = appointment.place === "القصر" ? "qasr" : "waha";
-      
-      row.innerHTML = `
-        <div class="cell date">${appointment.date}</div>
-        <div class="cell place ${placeClass}">${appointment.place}</div>
-        <div class="cell unit">${appointment.unit}</div>
-      `;
-      
-      appointmentsContainer.appendChild(row);
-    });
-  }
-
-  function setupEventListeners() {
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        applyFilters();
-      });
-    });
-    
-    monthFilter.addEventListener('change', applyFilters);
-    
-    document.addEventListener('click', function(e) {
-      const row = e.target.closest('.row');
-      if (row) {
-        document.querySelectorAll('.row').forEach(r => r.classList.remove('highlighted'));
-        row.classList.add('highlighted');
-        
-        const date = row.querySelector('.date').textContent;
-        const place = row.querySelector('.place').textContent;
-        const unit = row.querySelector('.unit').textContent;
-        
-        todayInfo.textContent = `الموعد المحدد: ${date} في ${place} - التقيميت ${unit}`;
-        todayInfo.classList.add('show');
-        
-        setTimeout(() => {
-          todayInfo.classList.remove('show');
-        }, 3000);
-      }
-    });
-  }
-
-  function applyFilters() {
-    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-    const selectedMonth = monthFilter.value;
-    
-    let filteredAppointments = [...appointments];
-    
-    if (activeFilter !== 'all') {
-      if (activeFilter === 'upcoming') {
-        filteredAppointments = filteredAppointments.filter(app => !isPastAppointment(app.date));
-      }
-    }
-    
-    if (selectedMonth !== 'all') {
-      filteredAppointments = filteredAppointments.filter(app => {
-        const monthMatch = app.date.match(/(جانفي|فيفري|مارس|أفريل|ماي|جوان|جويلية|أوت|سبتمبر|أكتوبر|نوفمبر|ديسمبر)/);
-        if (monthMatch) {
-          const monthNames = {
-            "جانفي": "01", "فيفري": "02", "مارس": "03", 
-            "أفريل": "04", "ماي": "05", "جوان": "06",
-            "جويلية": "07", "أوت": "08", "سبتمبر": "09",
-            "أكتوبر": "10", "نوفمبر": "11", "ديسمبر": "12"
-          };
-          return monthNames[monthMatch[1]] === selectedMonth;
-        }
-        return false;
-      });
-    }
-    
-    renderAppointments(filteredAppointments);
-  }
-
-  checkPreviousLogin();
+  const container = document.getElementById('appointmentsContainer');
+  appointments.forEach(app => {
+    const row = document.createElement('div');
+    row.className = 'appointment-row';
+    const placeClass = (app.place === "القصر") ? 'qasr' : 'waha';
+    row.innerHTML = `
+      <div class="cell date">${app.date}</div>
+      <div class="cell place ${placeClass}">${app.place}</div>
+      <div class="cell unit">${app.unit}</div>
+    `;
+    container.appendChild(row);
+  });
 </script>
 </body>
 </html>
