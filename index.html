@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مواعيد 2026 - A5 أفقي</title>
+<title>مواعيد 2026 - A6 عمودي</title>
 <style>
-  /* تعريف الصفحة A5 أفقية مع هوامش ضيقة */
+  /* تعريف الصفحة A6 عمودية بهوامش 1 سم من جميع الجهات */
   @page {
-    size: A5 landscape;
-    margin: 0.3in;  /* هوامش مناسبة */
+    size: A6 portrait;
+    margin: 1cm;
   }
 
   body {
@@ -17,35 +17,28 @@
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
   }
 
-  /* كل صفحة تحتوي على عمودين */
+  /* كل صفحة تحتوي على عنوان وقائمة عمودية */
   .page {
     page-break-after: always;  /* كل صفحة تبدأ جديدة */
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 100vh;         /* ملء الصفحة عمودياً */
+    min-height: 100vh;         /* لملء الصفحة عمودياً */
   }
 
   h1 {
     text-align: center;
-    font-size: 16pt;
-    margin: 0 0 8px 0;
+    font-size: 14pt;
+    margin: 0 0 0.8cm 0;       /* مسافة تحت العنوان */
     color: #2c3e50;
   }
 
-  /* حاوية العمودين داخل الصفحة */
-  .two-columns {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    flex: 1;
-  }
-
-  .column {
-    flex: 1;
+  /* حاوية المواعيد عمودية */
+  .appointments-list {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;                   /* مسافة بين الصفوف */
+    flex: 1;
   }
 
   /* كل موعد (صف) */
@@ -54,12 +47,11 @@
     flex-direction: row;
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 0;  /* نستخدم gap في العمود */
   }
 
   .cell {
-    padding: 5px 3px;
-    font-size: 10pt;        /* حجم مناسب لـ A5 */
+    padding: 4px 2px;
+    font-size: 9pt;             /* حجم خط مناسب لـ A6 */
     font-weight: bold;
     text-align: center;
     color: white;
@@ -67,7 +59,7 @@
 
   .date {
     flex: 1.5;
-    background: #2ecc71;    /* أخضر */
+    background: #2ecc71;        /* أخضر */
   }
 
   .place {
@@ -75,25 +67,16 @@
   }
 
   .place.qasr {
-    background: #9b59b6;    /* بنفسجي */
+    background: #9b59b6;        /* بنفسجي */
   }
 
   .place.waha {
-    background: #3498db;    /* أزرق */
+    background: #3498db;        /* أزرق */
   }
 
   .unit {
-    flex: 0 0 60px;         /* عرض ثابت */
-    background: #e74c3c;    /* أحمر */
-  }
-
-  footer {
-    text-align: center;
-    font-size: 8pt;
-    color: #777;
-    margin-top: 8px;
-    border-top: 1px solid #ccc;
-    padding-top: 4px;
+    flex: 0 0 50px;             /* عرض ثابت للوحدة */
+    background: #e74c3c;        /* أحمر */
   }
 
   /* إزالة تأثير الصفحة الأخيرة */
@@ -104,23 +87,8 @@
 </head>
 <body>
 
-<div class="page">
-  <h1>مواعيد سنة 2026 - الصفحة 1/2</h1>
-  <div class="two-columns">
-    <div class="column" id="col1"></div>
-    <div class="column" id="col2"></div>
-  </div>
-  <footer>جميع المواعيد محددة لعام 2026</footer>
-</div>
-
-<div class="page">
-  <h1>مواعيد سنة 2026 - الصفحة 2/2</h1>
-  <div class="two-columns">
-    <div class="column" id="col3"></div>
-    <div class="column" id="col4"></div>
-  </div>
-  <footer>تابع المواعيد</footer>
-</div>
+<!-- سيتم إنشاء 4 صفحات ديناميكياً عبر JavaScript -->
+<div id="pages-container"></div>
 
 <script>
   // قائمة المواعيد (46 موعداً)
@@ -172,37 +140,6 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  // تقسيم المواعيد إلى نصفين (23 + 23)
-  const firstHalf = appointments.slice(0, 23);
-  const secondHalf = appointments.slice(23);
-
-  // دالة لتوزيع قائمة المواعيد على عمودين بالتساوي
-  function splitIntoColumns(apptList, col1Id, col2Id) {
-    const col1 = document.getElementById(col1Id);
-    const col2 = document.getElementById(col2Id);
-    
-    // تفريغ الأعمدة (في حالة إعادة التشغيل)
-    col1.innerHTML = '';
-    col2.innerHTML = '';
-
-    // تقسيم القائمة إلى نصفين تقريباً
-    const half = Math.ceil(apptList.length / 2);
-    const firstColApps = apptList.slice(0, half);
-    const secondColApps = apptList.slice(half);
-
-    // إضافة المواعيد إلى العمود الأول
-    firstColApps.forEach(app => {
-      const row = createAppointmentRow(app);
-      col1.appendChild(row);
-    });
-
-    // إضافة المواعيد إلى العمود الثاني
-    secondColApps.forEach(app => {
-      const row = createAppointmentRow(app);
-      col2.appendChild(row);
-    });
-  }
-
   // دالة لإنشاء صف موعد
   function createAppointmentRow(app) {
     const row = document.createElement('div');
@@ -216,12 +153,42 @@
     return row;
   }
 
-  // تعبئة الصفحة الأولى (العمودين col1 و col2)
-  splitIntoColumns(firstHalf, 'col1', 'col2');
+  // تقسيم المواعيد إلى 4 صفحات (12+12+11+11)
+  const page1Apps = appointments.slice(0, 12);
+  const page2Apps = appointments.slice(12, 24);
+  const page3Apps = appointments.slice(24, 35); // 11 موعداً
+  const page4Apps = appointments.slice(35, 46); // 11 موعداً
 
-  // تعبئة الصفحة الثانية (العمودين col3 و col4)
-  splitIntoColumns(secondHalf, 'col3', 'col4');
+  // حاوية الصفحات
+  const container = document.getElementById('pages-container');
+
+  // دالة لإنشاء صفحة معينة
+  function createPage(appsList) {
+    const pageDiv = document.createElement('div');
+    pageDiv.className = 'page';
+
+    // العنوان
+    const title = document.createElement('h1');
+    title.textContent = 'مواعيد سنة 2026';
+    pageDiv.appendChild(title);
+
+    // قائمة المواعيد
+    const listDiv = document.createElement('div');
+    listDiv.className = 'appointments-list';
+    appsList.forEach(app => {
+      listDiv.appendChild(createAppointmentRow(app));
+    });
+    pageDiv.appendChild(listDiv);
+
+    return pageDiv;
+  }
+
+  // إضافة الصفحات الأربع
+  container.appendChild(createPage(page1Apps));
+  container.appendChild(createPage(page2Apps));
+  container.appendChild(createPage(page3Apps));
+  container.appendChild(createPage(page4Apps));
 </script>
 
 </body>
-  </html>
+</html> 
