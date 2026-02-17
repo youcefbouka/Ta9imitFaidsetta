@@ -2,11 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مواعيد 2026 - A6 عمودي</title>
+<title>مواعيد 2026 - A5 عمودي</title>
 <style>
+  /* تعريف الصفحة A5 عمودية بهوامش 1.5 سم من جميع الجهات */
   @page {
-    size: A6 portrait;
-    margin: 1cm;
+    size: A5 portrait;
+    margin: 1.5cm;
   }
 
   body {
@@ -21,33 +22,33 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 100vh;
+    min-height: 100vh;   /* لملء الصفحة عمودياً */
   }
 
   h1 {
     text-align: center;
-    font-size: 14pt;
-    margin: 0 0 0.8cm 0;
+    font-size: 20pt;      /* حجم أكبر لـ A5 */
+    margin: 0 0 1.2cm 0;
     color: #2c3e50;
   }
 
   .appointments-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;            /* مسافة أكبر بين الصفوف */
     flex: 1;
   }
 
   .appointment-row {
     display: flex;
     flex-direction: row;
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
   }
 
   .cell {
-    padding: 4px 2px;
-    font-size: 9pt;
+    padding: 8px 4px;     /* حشوة أكبر */
+    font-size: 14pt;      /* خط واضح ومناسب لـ A5 */
     font-weight: bold;
     text-align: center;
     color: white;
@@ -71,7 +72,7 @@
   }
 
   .unit {
-    flex: 0 0 50px;
+    flex: 0 0 70px;       /* عرض أكبر للوحدة */
     background: #e74c3c;
   }
 
@@ -132,6 +133,12 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
+  // توزيع المواعيد على 4 صفحات (12+12+11+11)
+  const page1Apps = appointments.slice(0, 12);
+  const page2Apps = appointments.slice(12, 24);
+  const page3Apps = appointments.slice(24, 35);
+  const page4Apps = appointments.slice(35, 46);
+
   function createAppointmentRow(app) {
     const row = document.createElement('div');
     row.className = 'appointment-row';
@@ -144,30 +151,19 @@
     return row;
   }
 
-  // تقسيم المواعيد إلى 4 صفحات (12+12+11+11)
-  const page1Apps = appointments.slice(0, 12);
-  const page2Apps = appointments.slice(12, 24);
-  const page3Apps = appointments.slice(24, 35); // 11
-  const page4Apps = appointments.slice(35, 46); // 11
-
-  const container = document.getElementById('pages-container');
-
-  // دالة لإنشاء صفحة (بدون عنوان)
   function createPageWithoutTitle(appsList) {
     const pageDiv = document.createElement('div');
     pageDiv.className = 'page';
-
     const listDiv = document.createElement('div');
     listDiv.className = 'appointments-list';
-    appsList.forEach(app => {
-      listDiv.appendChild(createAppointmentRow(app));
-    });
+    appsList.forEach(app => listDiv.appendChild(createAppointmentRow(app)));
     pageDiv.appendChild(listDiv);
-
     return pageDiv;
   }
 
-  // إنشاء الصفحة الأولى مع العنوان
+  const container = document.getElementById('pages-container');
+
+  // الصفحة الأولى مع العنوان
   const firstPage = document.createElement('div');
   firstPage.className = 'page';
   const title = document.createElement('h1');
@@ -185,4 +181,4 @@
   container.appendChild(createPageWithoutTitle(page4Apps));
 </script>
 </body>
-</html> 
+</html>
