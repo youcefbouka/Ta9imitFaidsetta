@@ -7,7 +7,7 @@
   /* إعدادات دقيقة لورق A5 عمودي */
   @page {
     size: A5 portrait;
-    margin: 1.2cm; /* هوامش ثابتة من جميع الجهات */
+    margin: 1cm; /* هوامش متوازنة */
   }
 
   body {
@@ -16,73 +16,77 @@
     background: white;
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
     width: 100%;
-    height: auto;
   }
 
-  /* كل صفحة تأخذ مساحة المحتوى فقط */
+  /* كل صفحة */
   .page {
     page-break-after: always;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
   }
-
   .page:last-child {
     page-break-after: auto;
   }
 
-  /* العنوان (فقط في الصفحة الأولى) */
+  /* العنوان في الصفحة الأولى فقط */
   h1 {
     text-align: center;
-    font-size: 22pt;      /* مناسب لـ A5 */
-    margin: 0 0 1cm 0;
+    font-size: 22pt;
+    margin: 0 0 0.8cm 0;
     color: #2c3e50;
     font-weight: normal;
   }
 
-  /* قائمة المواعيد العمودية */
-  .appointments-list {
+  /* حاوية العمودين */
+  .two-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 0.6cm; /* فجوة بين العمودين */
+    width: 100%;
+    flex: 1;
+  }
+
+  /* كل عمود */
+  .column {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;             /* مسافة بين الصفوف */
-    width: 100%;
+    gap: 6px; /* مسافة بين الصفوف داخل العمود */
   }
 
   /* صف الموعد: تاريخ + رقم */
   .appointment-row {
     display: flex;
     flex-direction: row;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    break-inside: avoid;  /* منع قطع الصف بين الصفحات */
+    break-inside: avoid; /* لمنع قطع الصف */
     width: 100%;
   }
 
-  /* الخلايا */
   .cell {
-    padding: 8px 4px;     /* زيادة الحشو لملء الصفحة */
-    font-size: 13pt;      /* حجم خط مناسب لـ A5 */
+    padding: 6px 2px;
+    font-size: 11pt;
     font-weight: bold;
     text-align: center;
     color: white;
   }
 
-  /* التاريخ يمثل 3/4 المساحة تقريباً */
+  /* التاريخ يأخذ 3/4 المساحة */
   .date {
     flex: 3;
   }
-
-  /* الرقم (1/4 المساحة) */
+  /* الرقم يأخذ 1/4 المساحة */
   .unit {
     flex: 1;
-    background-color: #e74c3c; /* أحمر ثابت */
+    background-color: #e74c3c; /* أحمر */
   }
 
-  /* ألوان خلفية التاريخ حسب المكان */
+  /* ألوان التاريخ حسب المكان */
   .date.qasr {
     background-color: #8B5A2B; /* بني صحراوي */
   }
-
   .date.waha {
     background-color: #2ecc71; /* أخضر */
   }
@@ -104,7 +108,6 @@
 <div id="pages-container"></div>
 
 <script>
-  // بيانات المواعيد (46 موعداً)
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
     { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
@@ -153,18 +156,11 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  // توزيع المواعيد على 4 صفحات A5: 12 + 12 + 11 + 11 (إجمالي 46)
-  const page1Apps = appointments.slice(0, 12);
-  const page2Apps = appointments.slice(12, 24);
-  const page3Apps = appointments.slice(24, 35);
-  const page4Apps = appointments.slice(35, 46);
-
-  // دالة لإنشاء صف موعد (تاريخ + رقم) مع اللون المناسب للتاريخ
-  function createAppointmentRow(app) {
+  // دالة إنشاء صف
+  function createRow(app) {
     const row = document.createElement('div');
     row.className = 'appointment-row';
-    // class للتاريخ حسب المكان
-    const dateClass = (app.place === "القصر") ? 'qasr' : 'waha';
+    const dateClass = app.place === "القصر" ? 'qasr' : 'waha';
     row.innerHTML = `
       <div class="cell date ${dateClass}">${app.date}</div>
       <div class="cell unit">${app.unit}</div>
@@ -172,35 +168,57 @@
     return row;
   }
 
-  // دالة لإنشاء صفحة بدون عنوان (تستخدم للصفحات 2-4)
-  function createPageWithoutTitle(appsList) {
-    const pageDiv = document.createElement('div');
-    pageDiv.className = 'page';
-    const listDiv = document.createElement('div');
-    listDiv.className = 'appointments-list';
-    appsList.forEach(app => listDiv.appendChild(createAppointmentRow(app)));
-    pageDiv.appendChild(listDiv);
-    return pageDiv;
+  // توزيع 46 موعداً على صفحتين:
+  // الصفحة الأولى: 23 موعداً, الثانية: 23 موعداً
+  const firstHalf = appointments.slice(0, 23);   // 23
+  const secondHalf = appointments.slice(23, 46); // 23
+
+  // تقسيم كل نصف إلى عمودين (لجعل الأعمدة متوازنة)
+  function splitIntoColumns(apps) {
+    const mid = Math.ceil(apps.length / 2);
+    return [apps.slice(0, mid), apps.slice(mid)];
   }
+
+  const [col1Apps, col2Apps] = splitIntoColumns(firstHalf);
+  const [col3Apps, col4Apps] = splitIntoColumns(secondHalf);
 
   const container = document.getElementById('pages-container');
 
-  // الصفحة الأولى (تحتوي على العنوان)
-  const firstPage = document.createElement('div');
-  firstPage.className = 'page';
-  const title = document.createElement('h1');
-  title.textContent = 'سنة 2026';
-  firstPage.appendChild(title);
-  const listDiv1 = document.createElement('div');
-  listDiv1.className = 'appointments-list';
-  page1Apps.forEach(app => listDiv1.appendChild(createAppointmentRow(app)));
-  firstPage.appendChild(listDiv1);
-  container.appendChild(firstPage);
+  // إنشاء صفحة بعمودين
+  function createPage(column1Apps, column2Apps, includeTitle = false) {
+    const pageDiv = document.createElement('div');
+    pageDiv.className = 'page';
 
-  // الصفحات الثانية والثالثة والرابعة (بدون عنوان)
-  container.appendChild(createPageWithoutTitle(page2Apps));
-  container.appendChild(createPageWithoutTitle(page3Apps));
-  container.appendChild(createPageWithoutTitle(page4Apps));
+    if (includeTitle) {
+      const title = document.createElement('h1');
+      title.textContent = 'سنة 2026';
+      pageDiv.appendChild(title);
+    }
+
+    const columnsDiv = document.createElement('div');
+    columnsDiv.className = 'two-columns';
+
+    // العمود الأول
+    const col1 = document.createElement('div');
+    col1.className = 'column';
+    column1Apps.forEach(app => col1.appendChild(createRow(app)));
+    columnsDiv.appendChild(col1);
+
+    // العمود الثاني
+    const col2 = document.createElement('div');
+    col2.className = 'column';
+    column2Apps.forEach(app => col2.appendChild(createRow(app)));
+    columnsDiv.appendChild(col2);
+
+    pageDiv.appendChild(columnsDiv);
+    return pageDiv;
+  }
+
+  // الصفحة الأولى مع العنوان
+  container.appendChild(createPage(col1Apps, col2Apps, true));
+
+  // الصفحة الثانية بدون عنوان
+  container.appendChild(createPage(col3Apps, col4Apps, false));
 </script>
 </body>
-  </html>
+</html> 
