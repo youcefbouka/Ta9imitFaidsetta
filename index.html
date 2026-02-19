@@ -2,11 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>مواعيد 2026 - 4 صفحات A5</title>
+<title>سنة 2026</title>
 <style>
+  /* إعدادات دقيقة لورق A6 عمودي */
   @page {
-    size: A5 portrait;
-    margin: 1.5cm; /* هوامش متوازنة من كل الجهات */
+    size: A6 portrait;
+    margin: 1.2cm; /* هوامش ثابتة من جميع الجهات */
   }
 
   body {
@@ -14,72 +15,89 @@
     padding: 0;
     background: white;
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    /* منع أي سلوك مرن أو تمدد */
+    width: 100%;
+    height: auto;
   }
 
+  /* كل صفحة تأخذ مساحة المحتوى فقط */
   .page {
-    page-break-after: always; /* كل صفحة تبدأ بعد السابقة */
+    page-break-after: always;
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: 100vh; /* لتملأ الصفحة عمودياً */
     box-sizing: border-box;
   }
 
   .page:last-child {
-    page-break-after: auto; /* لا فاصل بعد الصفحة الأخيرة */
+    page-break-after: auto;
   }
 
+  /* العنوان (فقط في الصفحة الأولى) */
   h1 {
     text-align: center;
-    font-size: 20pt;
-    margin: 0 0 1cm 0; /* مسافة كافية تحت العنوان */
+    font-size: 18pt;
+    margin: 0 0 0.8cm 0;
     color: #2c3e50;
+    font-weight: normal;
   }
 
+  /* قائمة المواعيد العمودية */
   .appointments-list {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* مسافة بين الصفوف */
-    flex: 1;
+    gap: 6px; /* مسافة بين الصفوف */
+    width: 100%;
   }
 
+  /* صف الموعد: تاريخ + رقم */
   .appointment-row {
     display: flex;
     flex-direction: row;
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    /* ضمان عدم كسر الصف عبر الصفحات */
-    break-inside: avoid;
+    break-inside: avoid; /* منع قطع الصف بين الصفحات */
+    width: 100%;
   }
 
+  /* الخلايا */
   .cell {
-    padding: 6px 4px;
-    font-size: 13pt; /* حجم مناسب لـ A5 */
+    padding: 5px 2px;
+    font-size: 11pt;
     font-weight: bold;
     text-align: center;
     color: white;
   }
 
+  /* التاريخ يمثل 3/4 المساحة تقريباً */
   .date {
-    flex: 1.5;
-    background: #2ecc71;
+    flex: 3;
   }
 
-  .place {
-    flex: 1;
-  }
-
-  .place.qasr {
-    background: #9b59b6;
-  }
-
-  .place.waha {
-    background: #3498db;
-  }
-
+  /* الرقم (1/4 المساحة) */
   .unit {
-    flex: 0 0 70px;
-    background: #e74c3c;
+    flex: 1;
+    background-color: #e74c3c; /* أحمر ثابت */
+  }
+
+  /* ألوان خلفية التاريخ حسب المكان */
+  .date.qasr {
+    background-color: #8B5A2B; /* بني صحراوي */
+  }
+
+  .date.waha {
+    background-color: #2ecc71; /* أخضر */
+  }
+
+  /* إلغاء أي تأثيرات تفاعلية */
+  .row:hover, .row.highlighted {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* منع أي امتداد غير مرغوب */
+  * {
+    box-sizing: border-box;
+    max-width: 100%;
   }
 </style>
 </head>
@@ -87,6 +105,7 @@
 <div id="pages-container"></div>
 
 <script>
+  // بيانات المواعيد (46 موعداً)
   const appointments = [
     { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
     { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
@@ -135,24 +154,26 @@
     { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
   ];
 
-  // تقسيم المواعيد إلى 4 صفحات فقط: 12+12+11+11
-  const page1Apps = appointments.slice(0, 12);  // 12 موعداً
-  const page2Apps = appointments.slice(12, 24); // 12 موعداً
-  const page3Apps = appointments.slice(24, 35); // 11 موعداً
-  const page4Apps = appointments.slice(35, 46); // 11 موعداً
+  // توزيع المواعيد على 4 صفحات: 12 + 12 + 11 + 11
+  const page1Apps = appointments.slice(0, 12);
+  const page2Apps = appointments.slice(12, 24);
+  const page3Apps = appointments.slice(24, 35);
+  const page4Apps = appointments.slice(35, 46);
 
+  // دالة لإنشاء صف موعد (تاريخ + رقم) مع اللون المناسب للتاريخ
   function createAppointmentRow(app) {
     const row = document.createElement('div');
     row.className = 'appointment-row';
-    const placeClass = app.place === "القصر" ? 'qasr' : 'waha';
+    // class للتاريخ حسب المكان
+    const dateClass = (app.place === "القصر") ? 'qasr' : 'waha';
     row.innerHTML = `
-      <div class="cell date">${app.date}</div>
-      <div class="cell place ${placeClass}">${app.place}</div>
+      <div class="cell date ${dateClass}">${app.date}</div>
       <div class="cell unit">${app.unit}</div>
     `;
     return row;
   }
 
+  // دالة لإنشاء صفحة بدون عنوان (تستخدم للصفحات 2-4)
   function createPageWithoutTitle(appsList) {
     const pageDiv = document.createElement('div');
     pageDiv.className = 'page';
@@ -165,11 +186,11 @@
 
   const container = document.getElementById('pages-container');
 
-  // الصفحة الأولى (مع العنوان)
+  // الصفحة الأولى (تحتوي على العنوان)
   const firstPage = document.createElement('div');
   firstPage.className = 'page';
   const title = document.createElement('h1');
-  title.textContent = 'مواعيد سنة 2026';
+  title.textContent = 'سنة 2026';
   firstPage.appendChild(title);
   const listDiv1 = document.createElement('div');
   listDiv1.className = 'appointments-list';
@@ -183,4 +204,4 @@
   container.appendChild(createPageWithoutTitle(page4Apps));
 </script>
 </body>
-</html>
+</html> 
