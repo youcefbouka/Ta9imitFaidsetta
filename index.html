@@ -7,31 +7,30 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            margin: 2cm; /* هوامش مناسبة للطباعة */
+            margin: 1.5cm; /* هوامش مناسبة للشاشة */
             background: white;
             color: black;
         }
         h1 {
             text-align: center;
-            font-size: 1.8em;
-            margin-bottom: 0.2em;
+            font-size: 1.6em;
+            margin-bottom: 0.1em;
         }
         .subtitle {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-top: 0;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
             color: #333;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2em;
-            font-size: 1em;
+            font-size: 0.9em;
         }
         th, td {
             border: 1px solid #444;
-            padding: 10px 8px;
+            padding: 6px 5px;
             text-align: right;
         }
         th {
@@ -39,26 +38,31 @@
             font-weight: bold;
         }
         td:last-child {
-            text-align: left; /* محاذاة الأسعار لليسار */
+            text-align: left;
             direction: ltr;
         }
         .total-row {
             font-weight: bold;
             background-color: #f0f0f0;
         }
-        .total-row td:last-child {
-            font-size: 1.1em;
-        }
-        /* تحسين الطباعة */
+        /* تحسينات الطباعة لضمان صفحة واحدة */
         @media print {
             body {
-                margin: 1.5cm;
+                margin: 1cm; /* هوامش أصغر للطباعة */
             }
             h1 {
-                font-size: 18pt;
+                font-size: 16pt;
+                margin-bottom: 0.2cm;
+            }
+            .subtitle {
+                font-size: 12pt;
+                margin-bottom: 0.5cm;
             }
             table {
-                font-size: 12pt;
+                font-size: 10pt; /* خط مناسب لصفحة A4 */
+            }
+            th, td {
+                padding: 4px 3px; /* تقليل الحشو */
             }
             .no-print {
                 display: none;
@@ -100,7 +104,6 @@
             <tr><td>مادلين</td><td>240</td></tr>
             <tr><td>سيليكتو</td><td>450</td></tr>
             <tr><td>عصير</td><td>300</td></tr>
-            <!-- سطر المجموع الكلي -->
             <tr class="total-row">
                 <td>المجموع الكلي</td>
                 <td>10460</td>
@@ -108,12 +111,12 @@
         </tbody>
     </table>
 
-    <div style="text-align: left; margin-top: 1.5em; font-size: 0.9em; color: #555;">
+    <div style="text-align: left; margin-top: 1em; font-size: 0.8em; color: #555;">
         <span>تم تحريره في: ......</span>
     </div>
-    <!-- اختياري: زر طباعة لا يظهر عند الطباعة -->
-    <div class="no-print" style="text-align: center; margin-top: 2em;">
+
+    <div class="no-print" style="text-align: center; margin-top: 1em;">
         <button onclick="window.print()">طباعة الصفحة</button>
     </div>
 </body>
-</html> 
+                                </html> 
