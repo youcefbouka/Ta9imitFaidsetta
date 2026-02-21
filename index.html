@@ -1,216 +1,119 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>سنة 2026</title>
-<style>
-  /* إعدادات دقيقة لورق A5 عمودي */
-  @page {
-    size: A5 portrait;
-    margin: 1cm; /* هوامش متوازنة */
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background: white;
-    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    width: 100%;
-  }
-
-  .page {
-    page-break-after: always;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-  .page:last-child {
-    page-break-after: auto;
-  }
-
-  /* العنوان في الصفحة الأولى فقط */
-  h1 {
-    text-align: center;
-    font-size: 22pt;
-    margin: 0 0 0.8cm 0;
-    color: #2c3e50;
-    font-weight: normal;
-  }
-
-  /* حاوية العمودين */
-  .two-columns {
-    display: flex;
-    flex-direction: row;
-    gap: 0.6cm;
-    width: 100%;
-    flex: 1;
-  }
-
-  .column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .appointment-row {
-    display: flex;
-    flex-direction: row;
-    border-radius: 6px;
-    overflow: hidden;
-    break-inside: avoid;
-    width: 100%;
-  }
-
-  .cell {
-    padding: 6px 2px;
-    font-size: 11pt;
-    font-weight: bold;
-    text-align: center;
-    color: white;
-  }
-
-  .date {
-    flex: 3;
-  }
-  .unit {
-    flex: 1;
-    background-color: #e74c3c;
-  }
-
-  .date.qasr {
-    background-color: #8B5A2B; /* بني صحراوي */
-  }
-  .date.waha {
-    background-color: #2ecc71; /* أخضر */
-  }
-
-  * {
-    box-sizing: border-box;
-    max-width: 100%;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مصاريف البرنامج التكويني الترفيهي</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 2cm; /* هوامش مناسبة للطباعة */
+            background: white;
+            color: black;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 0.2em;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 2em;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2em;
+            font-size: 1em;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px 8px;
+            text-align: right;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        td:last-child {
+            text-align: left; /* محاذاة الأسعار لليسار */
+            direction: ltr;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+        .total-row td:last-child {
+            font-size: 1.1em;
+        }
+        /* تحسين الطباعة */
+        @media print {
+            body {
+                margin: 1.5cm;
+            }
+            h1 {
+                font-size: 18pt;
+            }
+            table {
+                font-size: 12pt;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="pages-container"></div>
+    <h1>مصاريف البرنامج التكويني الترفيهي</h1>
+    <div class="subtitle">لفائدة شباب عشيرة آت خفيان - 5 و 6 فيفري 2026</div>
 
-<script>
-  // المواعيد (45 موعداً)
-  const appointments = [
-    { date: "الخميس 08 جانفي", place: "القصر", unit: "3" },
-    { date: "الجمعة 16 جانفي", place: "الواحة", unit: "3" },
-    { date: "السبت 24 جانفي", place: "القصر", unit: "1" },
-    { date: "الأحد 01 فيفري", place: "الواحة", unit: "1" },
-    { date: "الإثنين 09 فيفري", place: "القصر", unit: "2" },
-    { date: "الثلاثاء 17 فيفري", place: "الواحة", unit: "2" },
-    { date: "الأربعاء 25 فيفري", place: "القصر", unit: "3" },
-    { date: "الخميس 05 مارس", place: "الواحة", unit: "3" },
-    { date: "الجمعة 13 مارس", place: "القصر", unit: "1" },
-    { date: "السبت 21 مارس", place: "الواحة", unit: "1" },
-    { date: "الأحد 29 مارس", place: "القصر", unit: "2" },
-    { date: "الإثنين 06 أفريل", place: "الواحة", unit: "2" },
-    { date: "الثلاثاء 14 أفريل", place: "القصر", unit: "3" },
-    { date: "الأربعاء 22 أفريل", place: "الواحة", unit: "3" },
-    { date: "الخميس 30 أفريل", place: "القصر", unit: "1" },
-    { date: "الجمعة 08 ماي", place: "الواحة", unit: "1" },
-    { date: "السبت 16 ماي", place: "القصر", unit: "2" },
-    { date: "الأحد 24 ماي", place: "الواحة", unit: "2" },
-    { date: "الإثنين 01 جوان", place: "القصر", unit: "3" },
-    { date: "الثلاثاء 09 جوان", place: "الواحة", unit: "3" },
-    { date: "الأربعاء 17 جوان", place: "القصر", unit: "1" },
-    { date: "الخميس 25 جوان", place: "الواحة", unit: "1" },
-    { date: "الجمعة 03 جويلية", place: "القصر", unit: "2" },
-    { date: "السبت 11 جويلية", place: "الواحة", unit: "2" },
-    { date: "الأحد 19 جويلية", place: "القصر", unit: "3" },
-    { date: "الإثنين 27 جويلية", place: "الواحة", unit: "3" },
-    { date: "الثلاثاء 04 أوت", place: "القصر", unit: "1" },
-    { date: "الأربعاء 12 أوت", place: "الواحة", unit: "1" },
-    { date: "الخميس 20 أوت", place: "القصر", unit: "2" },
-    { date: "الجمعة 28 أوت", place: "الواحة", unit: "2" },
-    { date: "السبت 05 سبتمبر", place: "القصر", unit: "3" },
-    { date: "الأحد 13 سبتمبر", place: "الواحة", unit: "3" },
-    { date: "الإثنين 21 سبتمبر", place: "القصر", unit: "1" },
-    { date: "الثلاثاء 29 سبتمبر", place: "الواحة", unit: "1" },
-    { date: "الأربعاء 07 أكتوبر", place: "القصر", unit: "2" },
-    { date: "الخميس 15 أكتوبر", place: "الواحة", unit: "2" },
-    { date: "الجمعة 23 أكتوبر", place: "القصر", unit: "3" },
-    { date: "السبت 31 أكتوبر", place: "الواحة", unit: "3" },
-    { date: "الأحد 08 نوفمبر", place: "القصر", unit: "1" },
-    { date: "الإثنين 16 نوفمبر", place: "الواحة", unit: "1" },
-    { date: "الثلاثاء 24 نوفمبر", place: "القصر", unit: "2" },
-    { date: "الأربعاء 02 ديسمبر", place: "الواحة", unit: "2" },
-    { date: "الخميس 10 ديسمبر", place: "القصر", unit: "3" },
-    { date: "الجمعة 18 ديسمبر", place: "الواحة", unit: "3" },
-    { date: "السبت 26 ديسمبر", place: "القصر", unit: "1" }
-  ]; // 45 موعداً
+    <table>
+        <thead>
+            <tr>
+                <th>البند</th>
+                <th>السعر (دج)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>جلبان</td><td>1000</td></tr>
+            <tr><td>بطاطا</td><td>500</td></tr>
+            <tr><td>بصل</td><td>130</td></tr>
+            <tr><td>حار وثوم</td><td>165</td></tr>
+            <tr><td>جزر</td><td>50</td></tr>
+            <tr><td>شلاطة، بيطراف، معدنوس</td><td>330</td></tr>
+            <tr><td>فلفل، زيتون، سلاطة</td><td>180</td></tr>
+            <tr><td>مندريـن</td><td>580</td></tr>
+            <tr><td>نعنـاع</td><td>100</td></tr>
+            <tr><td>دجاج (320 دج/كغ)</td><td>2750</td></tr>
+            <tr><td>بيض</td><td>470</td></tr>
+            <tr><td>زيتون</td><td>750</td></tr>
+            <tr><td>صانڤو (زيت)</td><td>130</td></tr>
+            <tr><td>زيت زيتون</td><td>380</td></tr>
+            <tr><td>تابع الشاي</td><td>850</td></tr>
+            <tr><td>شاي</td><td>360</td></tr>
+            <tr><td>سكر</td><td>95</td></tr>
+            <tr><td>زيت وملح</td><td>220</td></tr>
+            <tr><td>خبز</td><td>430</td></tr>
+            <tr><td>مادلين</td><td>240</td></tr>
+            <tr><td>سيليكتو</td><td>450</td></tr>
+            <tr><td>عصير</td><td>300</td></tr>
+            <!-- سطر المجموع الكلي -->
+            <tr class="total-row">
+                <td>المجموع الكلي</td>
+                <td>10460</td>
+            </tr>
+        </tbody>
+    </table>
 
-  // دالة إنشاء صف
-  function createRow(app) {
-    const row = document.createElement('div');
-    row.className = 'appointment-row';
-    const dateClass = app.place === "القصر" ? 'qasr' : 'waha';
-    row.innerHTML = `
-      <div class="cell date ${dateClass}">${app.date}</div>
-      <div class="cell unit">${app.unit}</div>
-    `;
-    return row;
-  }
-
-  // تقسيم المواعيد حسب الطلب:
-  // الصفحة الأولى: 22 موعداً (11 + 11)
-  // الصفحة الثانية: 23 موعداً (11 + 12)
-
-  const firstPageApps = appointments.slice(0, 22);    // أول 22 موعداً
-  const secondPageApps = appointments.slice(22, 45);  // الباقي 23 موعداً
-
-  // تقسيم كل صفحة إلى عمودين بالأعداد المحددة
-  function splitIntoColumns(apps, firstColCount, secondColCount) {
-    const col1 = apps.slice(0, firstColCount);
-    const col2 = apps.slice(firstColCount, firstColCount + secondColCount);
-    return [col1, col2];
-  }
-
-  // الصفحة الأولى: 11 و 11
-  const [page1Col1, page1Col2] = splitIntoColumns(firstPageApps, 11, 11);
-
-  // الصفحة الثانية: 11 و 12
-  const [page2Col1, page2Col2] = splitIntoColumns(secondPageApps, 11, 12);
-
-  const container = document.getElementById('pages-container');
-
-  // دالة إنشاء صفحة بعمودين
-  function createPage(column1Apps, column2Apps, includeTitle = false) {
-    const pageDiv = document.createElement('div');
-    pageDiv.className = 'page';
-
-    if (includeTitle) {
-      const title = document.createElement('h1');
-      title.textContent = 'سنة 2026';
-      pageDiv.appendChild(title);
-    }
-
-    const columnsDiv = document.createElement('div');
-    columnsDiv.className = 'two-columns';
-
-    const col1 = document.createElement('div');
-    col1.className = 'column';
-    column1Apps.forEach(app => col1.appendChild(createRow(app)));
-
-    const col2 = document.createElement('div');
-    col2.className = 'column';
-    column2Apps.forEach(app => col2.appendChild(createRow(app)));
-
-    columnsDiv.appendChild(col1);
-    columnsDiv.appendChild(col2);
-    pageDiv.appendChild(columnsDiv);
-    return pageDiv;
-  }
-
-  // الصفحة الأولى مع العنوان
-  container.appendChild(createPage(page1Col1, page1Col2, true));
-
-  // الصفحة الثانية بدون عنوان
-  container.appendChild(createPage(page2Col1, page2Col2, false));
-</script>
+    <div style="text-align: left; margin-top: 1.5em; font-size: 0.9em; color: #555;">
+        <span>تم تحريره في: ......</span>
+    </div>
+    <!-- اختياري: زر طباعة لا يظهر عند الطباعة -->
+    <div class="no-print" style="text-align: center; margin-top: 2em;">
+        <button onclick="window.print()">طباعة الصفحة</button>
+    </div>
 </body>
 </html> 
