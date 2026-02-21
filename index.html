@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            margin: 1.5cm; /* هوامش مناسبة للشاشة */
+            margin: 1.5cm;
             background: white;
             color: black;
         }
@@ -45,10 +45,9 @@
             font-weight: bold;
             background-color: #f0f0f0;
         }
-        /* تحسينات الطباعة لضمان صفحة واحدة */
         @media print {
             body {
-                margin: 1cm; /* هوامش أصغر للطباعة */
+                margin: 1cm;
             }
             h1 {
                 font-size: 16pt;
@@ -59,10 +58,10 @@
                 margin-bottom: 0.5cm;
             }
             table {
-                font-size: 10pt; /* خط مناسب لصفحة A4 */
+                font-size: 10pt;
             }
             th, td {
-                padding: 4px 3px; /* تقليل الحشو */
+                padding: 4px 3px;
             }
             .no-print {
                 display: none;
@@ -83,17 +82,19 @@
         </thead>
         <tbody>
             <tr><td>جلبان</td><td>1000</td></tr>
+            <tr><td>زيتون</td><td>750</td></tr> <!-- تم نقله من البقالة -->
             <tr><td>بطاطا</td><td>500</td></tr>
             <tr><td>بصل</td><td>130</td></tr>
             <tr><td>حار وثوم</td><td>165</td></tr>
             <tr><td>جزر</td><td>50</td></tr>
             <tr><td>شلاطة، بيطراف، معدنوس</td><td>330</td></tr>
-            <tr><td>فلفل، زيتون، سلاطة</td><td>180</td></tr>
+            <!-- تعديل النص حسب الطلب: فلفل، زيتون سلاطة (بدون فاصلة بعد زيتون) -->
+            <tr><td>فلفل، زيتون سلاطة</td><td>180</td></tr>
             <tr><td>مندريـن</td><td>580</td></tr>
             <tr><td>نعنـاع</td><td>100</td></tr>
             <tr><td>دجاج (320 دج/كغ)</td><td>2750</td></tr>
             <tr><td>بيض</td><td>470</td></tr>
-            <tr><td>زيتون</td><td>750</td></tr>
+            <!-- باقي المواد (تم حذف زيتون المكرر) -->
             <tr><td>صانڤو (زيت)</td><td>130</td></tr>
             <tr><td>زيت زيتون</td><td>380</td></tr>
             <tr><td>تابع الشاي</td><td>850</td></tr>
@@ -111,12 +112,9 @@
         </tbody>
     </table>
 
-    <div style="text-align: left; margin-top: 1em; font-size: 0.8em; color: #555;">
-        <span>تم تحريره في: ......</span>
-    </div>
-
+    <!-- تم إزالة "تم تحريره في" -->
     <div class="no-print" style="text-align: center; margin-top: 1em;">
         <button onclick="window.print()">طباعة الصفحة</button>
     </div>
 </body>
-                                </html> 
+</html> 
