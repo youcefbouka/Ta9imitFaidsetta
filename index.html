@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برنامج الإرشاد · المسجد الكبير الإباضي · A3 عمودي</title>
+    <title>برنامج الإرشاد | رمضان 1447 هـ | تصميم احترافي</title>
     <style>
-        /* إعدادات الصفحة A3 عمودي (Portrait) */
+        /* إعدادات الصفحة A3 عمودي مع هوامر ضيقة لاستيعاب المحتوى */
         @page {
             size: A3 portrait;
-            margin: 1cm; /* هوامش منخفضة لاستغلال المساحة */
+            margin: 0.7cm;
         }
 
         * {
@@ -18,7 +18,7 @@
         }
 
         body {
-            background: #cbb89e;
+            background: #c7b199; /* خلفية خارجية دافئة */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,267 +27,342 @@
             padding: 10px;
         }
 
-        /* الحاوية الرئيسية بحجم A3 عمودي بالضبط (عرض 29.7 سم، ارتفاع 42 سم) */
+        /* الحاوية الرئيسية - A3 portrait بالضبط */
         .a3-portrait {
             width: 29.7cm;
             min-width: 29.7cm;
             max-width: 29.7cm;
             height: 42cm;
-            background: #fdf7ed;
-            border: 10px double #96724c;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            padding: 0.8cm 0.6cm; /* هوامش داخلية منخفضة قليلاً */
+            background: #fcf7f0; /* قاعدة فاتحة جداً */
+            border-radius: 40px 40px 30px 30px;
+            box-shadow: 0 25px 50px rgba(100, 30, 20, 0.3);
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* منع أي تجاوز */
+            overflow: hidden; /* قص أي محتوى زائد */
+            border: 2px solid #c28a5c; /* لون ذهبي-نحاسي */
         }
 
-        /* زخرفة علوية */
-        .ornament-top {
+        /* الخلفية الرئيسية بنقش خفيف جداً مع تدرج لوني */
+        .a3-portrait::before {
+            content: "";
             position: absolute;
-            top: 12px;
-            left: 15%;
-            width: 70%;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, #b78d5a, #8b6946, #b78d5a, transparent);
-            border-radius: 20px;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(210, 120, 80, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(150, 40, 30, 0.04) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(180, 70, 50, 0.02) 0px, rgba(180, 70, 50, 0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* رأس الصفحة بحجم مناسب */
-        .header-classic {
+        /* طبقة حمراء فخمة شفافة في الأعلى */
+        .a3-portrait::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 200px;
+            background: linear-gradient(180deg, rgba(150, 30, 30, 0.15) 0%, transparent 90%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* المحتوى فوق الخلفيات */
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 0.7cm 0.6cm 0.5cm 0.6cm;
+        }
+
+        /* زخرفة علوية على شكل شريط أحمر فخم */
+        .top-ornament {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, #9e2a2b, #c49a6c, #9e2a2b);
+            box-shadow: 0 2px 10px #a53a2d;
+            z-index: 3;
+            border-radius: 40px 40px 0 0;
+        }
+
+        /* رأس الصفحة */
+        .header-section {
             text-align: center;
-            margin-bottom: 8px;
-            border-bottom: 3px solid #b78d5a;
-            padding-bottom: 6px;
+            margin-bottom: 0.4cm;
+            position: relative;
         }
 
         .main-title {
-            font-size: 36px; /* كبير ولكن ليس مفرط */
-            font-weight: bold;
-            color: #2d4f2b;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 0 #e7d6bc;
-            line-height: 1.3;
+            font-size: 38px;
+            font-weight: 800;
+            color: #4a251b; /* بني محمر غامق */
+            text-shadow: 2px 2px 0 rgba(215, 170, 120, 0.3);
+            line-height: 1.35;
+            background: linear-gradient(180deg, #fffaf2, #f4e5d8);
+            display: inline-block;
+            padding: 0.1cm 1cm;
+            border-radius: 80px 80px 30px 30px;
+            box-shadow: 0 6px 0 #9e5e3b, 0 10px 18px rgba(140, 50, 30, 0.1);
+            border: 1px solid #bf7b4c;
         }
 
         .main-title span {
-            font-size: 28px;
-            color: #6b4f30;
+            font-size: 30px;
             display: block;
-        }
-
-        .sub-mosque {
-            font-size: 26px;
-            background: #dac09a;
-            display: inline-block;
-            padding: 3px 40px;
-            border-radius: 50px;
-            margin-top: 8px;
-            border: 1px solid #7b5a37;
-            box-shadow: 0 3px 0 #5f432a;
-            color: #2d2d15;
-            font-weight: 600;
-        }
-
-        /* شريط التاريخ */
-        .date-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #eedbcb;
-            padding: 5px 20px;
-            border-radius: 40px;
-            margin: 8px 0 12px;
-            border: 1px solid #a57e55;
-            font-size: 22px;
-            font-weight: 600;
-            color: #3f2f1c;
-        }
-
-        .date-info div {
-            background: #fff6e6;
-            padding: 4px 25px;
-            border-radius: 30px;
-            border: 1px solid #b58d62;
-        }
-
-        /* الجدول الرئيسي - خط كبير جداً */
-        .program-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 22px; /* أكبر حجم ممكن مع بقاء 31 صفاً */
-            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
-            background: #fffcf2;
-            border: 3px solid #7b5e3f;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            flex: 1; /* يأخذ كل المساحة المتبقية */
-            table-layout: fixed; /* لتوزيع الأعمدة بشكل متحكم */
-        }
-
-        /* توزيع عرض الأعمدة */
-        .program-table th:nth-child(1) { width: 23%; } /* التاريخ الميلادي */
-        .program-table th:nth-child(2) { width: 18%; } /* التاريخ الهجري */
-        .program-table th:nth-child(3) { width: 24%; } /* المرشد */
-        .program-table th:nth-child(4) { width: 35%; } /* الموضوع */
-
-        .program-table th {
-            background: #3f612d;
-            color: #fef3d6;
-            font-size: 24px;
-            font-weight: 600;
-            padding: 8px 2px;
-            border: 2px solid #9f7b4b;
-            text-align: center;
-            vertical-align: middle;
-            line-height: 1.2;
-        }
-
-        .program-table td {
-            padding: 6px 4px;
-            border: 1px solid #b79363;
-            text-align: center;
-            vertical-align: middle;
-            background-color: #fefcf5;
-            color: #2b2b1a;
-            line-height: 1.3;
-        }
-
-        /* تلوين الصفوف بالتناوب */
-        .program-table tbody tr:nth-child(even) td {
-            background-color: #f6ede1;
-        }
-
-        /* محاذاة نص المرشد والموضوع لليمين */
-        .program-table td:nth-child(3),
-        .program-table td:nth-child(4) {
-            text-align: right;
-            padding-right: 10px;
-        }
-
-        /* تمييز الخلايا الفارغة */
-        .empty-lesson {
-            color: #9b7a5a;
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        /* تذييل */
-        .footer-note {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-            font-size: 20px;
-            color: #5d422b;
-            border-top: 2px solid #b58d62;
-            padding-top: 8px;
-            background: #f5e8d9;
-            border-radius: 0 0 20px 20px;
-            padding: 6px 20px;
-        }
-
-        .footer-note .icon {
-            font-size: 26px;
-        }
-
-        .footer-note span {
-            background: #96724c;
-            color: #fdf1d6;
-            padding: 3px 25px;
-            border-radius: 40px;
-            border: 1px solid #4f3d28;
-            font-size: 18px;
-        }
-
-        .bottom-stamp {
-            text-align: center;
-            font-size: 18px;
-            color: #704e2d;
+            color: #872e2e;
             margin-top: 5px;
         }
 
-        /* تحسين للطباعة */
+        .sub-mosque {
+            font-size: 28px;
+            background: linear-gradient(145deg, #b12a2a, #871f1f);
+            color: #fbead2;
+            display: inline-block;
+            padding: 0.15cm 1.2cm;
+            border-radius: 60px;
+            margin-top: 0.3cm;
+            border: 2px solid #e4b481;
+            box-shadow: 0 5px 0 #4f2b18, 0 8px 15px rgba(150, 40, 30, 0.3);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* شريط التاريخ */
+        .date-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.6cm;
+            background: rgba(255, 240, 225, 0.7);
+            backdrop-filter: blur(2px);
+            padding: 0.25cm 0.8cm;
+            border-radius: 70px;
+            margin: 0.3cm 0 0.4cm;
+            border: 1px solid #ba7a4a;
+            box-shadow: 0 3px 0 #8f4e2e, inset 0 2px 8px #ffe2c1;
+            font-size: 24px;
+            font-weight: 600;
+            color: #542a1c;
+        }
+
+        .date-bar div {
+            background: #fffbf5;
+            padding: 0.15cm 1cm;
+            border-radius: 50px;
+            border: 1px solid #be6b42;
+            box-shadow: inset 0 1px 5px #ddb594;
+        }
+
+        /* الجدول - تصميم فاخر */
+        .program-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 21.5px; /* تمت زيادة الحجم قليلاً مع المحافظة على 31 صفاً */
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            background: rgba(255, 248, 240, 0.9);
+            backdrop-filter: blur(1px);
+            border: 2px solid #b15d3a;
+            box-shadow: 0 12px 25px rgba(100, 30, 15, 0.25);
+            flex: 1; /* يأخذ المساحة المتبقية */
+            table-layout: fixed; /* توزيع محكم للأعمدة */
+            border-radius: 18px 18px 12px 12px;
+            overflow: hidden;
+        }
+
+        /* رؤوس الأعمدة بتدرج أحمر فخم */
+        .program-table th {
+            background: linear-gradient(145deg, #9b2c2c, #751e1e);
+            color: #f9e3c1;
+            font-size: 24px;
+            font-weight: 700;
+            padding: 0.25cm 0.1cm;
+            border: 1px solid #cd9f70;
+            text-align: center;
+            vertical-align: middle;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 0 #4f1e1e;
+            box-shadow: inset 0 -2px 0 #d4a373;
+        }
+
+        /* توزيع عرض الأعمدة */
+        .program-table th:nth-child(1) { width: 22%; } /* ميلادي */
+        .program-table th:nth-child(2) { width: 18%; } /* هجري */
+        .program-table th:nth-child(3) { width: 25%; } /* مرشد */
+        .program-table th:nth-child(4) { width: 35%; } /* موضوع */
+
+        .program-table td {
+            padding: 0.15cm 0.15cm;
+            border: 1px solid #c9926b;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #fffcf4;
+            color: #2e2a23;
+            font-weight: 450;
+            line-height: 1.3;
+        }
+
+        /* صفوف متناوبة ناعمة مع لمسة حمراء */
+        .program-table tbody tr:nth-child(even) td {
+            background: linear-gradient(90deg, #fef7ee, #faeeda);
+        }
+
+        /* لمسة حمراء على الجانب الأيمن لكل خلية */
+        .program-table td::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 3px;
+            background: linear-gradient(180deg, #c3623a, #b33f2a);
+            border-radius: 3px;
+            opacity: 0.4;
+        }
+
+        /* إعادة ضبط للخلايا لأن الـ before المطلق سيحتاج إلى relative */
+        .program-table td {
+            position: relative;
+        }
+
+        /* محاذاة المرشد والموضوع لليمين */
+        .program-table td:nth-child(3),
+        .program-table td:nth-child(4) {
+            text-align: right;
+            padding-right: 0.3cm;
+        }
+
+        /* الخلايا الفارغة */
+        .empty-lesson {
+            color: #ac6e52;
+            font-style: italic;
+            font-weight: 400;
+            background: #faf2e6;
+        }
+
+        /* تذييل أنيق */
+        .footer-elegant {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.25cm;
+            background: linear-gradient(90deg, #dbb594, #f0dbc4, #dbb594);
+            padding: 0.2cm 0.8cm;
+            border-radius: 70px;
+            border: 2px solid #ac623c;
+            box-shadow: 0 4px 0 #784629, inset 0 1px 5px #ffdbb5;
+            color: #3f2419;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .footer-elegant span {
+            background: #9e3a2b;
+            color: #ffefd5;
+            padding: 0.1cm 0.8cm;
+            border-radius: 50px;
+            border: 1px solid #e7b78c;
+            box-shadow: 0 2px 0 #54291a;
+            font-size: 20px;
+        }
+
+        .footer-elegant .icon {
+            font-size: 32px;
+            filter: drop-shadow(0 2px 4px #752e1a);
+        }
+
+        .bottom-note {
+            text-align: center;
+            font-size: 19px;
+            color: #7b3f28;
+            margin-top: 0.15cm;
+            font-weight: 500;
+            text-shadow: 0 1px 1px #e9cbb2;
+        }
+
+        /* طباعة */
         @media print {
-            body { background: white; padding: 0; }
-            .a3-portrait { box-shadow: none; border-color: #6b4f30; }
+            body { background: white; }
+            .a3-portrait { box-shadow: none; border-color: #a15533; }
         }
     </style>
 </head>
 <body>
     <div class="a3-portrait">
-        <div class="ornament-top"></div>
-
-        <div class="header-classic">
-            <div class="main-title">
-                المسجد الكبير الإباضي لقصر غرداية - الحلقة الموحدة -
-                <span>لجنة الإرشاد</span>
+        <div class="top-ornament"></div>
+        <div class="content">
+            <div class="header-section">
+                <div class="main-title">
+                    المسجد الكبير الإباضي لقصر غرداية - الحلقة الموحدة -
+                    <span>لجنة الإرشاد</span>
+                </div>
+                <div class="sub-mosque">
+                    🕌 مسجد أخلخال 🕌
+                </div>
             </div>
-            <div class="sub-mosque">
-                🕌 مسجد أخلخال 🕌
+
+            <div class="date-bar">
+                <div>🌙 رمضان 1447 هـ</div>
+                <div>📆 مارس 2026 م</div>
             </div>
-        </div>
 
-        <div class="date-info">
-            <div>🌙 رمضان 1447 هـ</div>
-            <div>📆 مارس 2026 م</div>
-        </div>
+            <!-- الجدول كامل 31 صفاً -->
+            <table class="program-table">
+                <thead>
+                    <tr>
+                        <th>التاريخ الميلادي</th>
+                        <th>التاريخ الهجري</th>
+                        <th>المرشد</th>
+                        <th>الموضوع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>الأربعاء 18 فيفري 2026</td><td>30 شعبان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
+                    <tr><td>الخميس 19 فيفري 2026</td><td>01 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
+                    <tr><td>الجمعة 20 فيفري 2026</td><td>02 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
+                    <tr><td>السبت 21 فيفري 2026</td><td>03 رمضان 1447</td><td>بنوح بن محمد باعلي واسعيد</td><td>[ومن احسن قولا ممن دعا إلى الله]</td></tr>
+                    <tr><td>الأحد 22 فيفري 2026</td><td>04 رمضان 1447</td><td>بوحديبة جابر بن عيسى</td><td>خطورة الأنا على النفس</td></tr>
+                    <tr><td>الاثنين 23 فيفري 2026</td><td>05 رمضان 1447</td><td>بوحديبة جابر بن عيسى</td><td>خطورة الأنا على النفس</td></tr>
+                    <tr><td>الثلاثاء 24 فيفري 2026</td><td>06 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان والقرآن</td></tr>
+                    <tr><td>الأربعاء 25 فيفري 2026</td><td>07 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان فرصتك للتغيير</td></tr>
+                    <tr><td>الخميس 26 فيفري 2026</td><td>08 رمضان 1447</td><td>مصطفى بن محمد معيز الحاج أحمد</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الجمعة 27 فيفري 2026</td><td>09 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>السبت 28 فيفري 2026</td><td>10 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الشمس</td></tr>
+                    <tr><td>الأحد 01 مارس 2026</td><td>11 رمضان 1447</td><td>يوسف بن محمد حكيمي</td><td>النظام العرفي في العمران وتحديات العصر</td></tr>
+                    <tr><td>الاثنين 02 مارس 2026</td><td>12 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
+                    <tr><td>الثلاثاء 03 مارس 2026</td><td>13 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
+                    <tr><td>الأربعاء 04 مارس 2026</td><td>14 رمضان 1447</td><td>الناصر الناصر</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الخميس 05 مارس 2026</td><td>15 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الجمعة 06 مارس 2026</td><td>16 رمضان 1447</td><td>بكير بن محمد بوكرموش</td><td>[لأقعدن لهم صراطك المستقيم]</td></tr>
+                    <tr><td>السبت 07 مارس 2026</td><td>17 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الأحد 08 مارس 2026</td><td>18 رمضان 1447</td><td>عيسى بن باحمد مصباح</td><td>تحري الكسب الحلال</td></tr>
+                    <tr><td>الاثنين 09 مارس 2026</td><td>19 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
+                    <tr><td>الثلاثاء 10 مارس 2026</td><td>20 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
+                    <tr><td>الأربعاء 11 مارس 2026</td><td>21 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الخميس 12 مارس 2026</td><td>22 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
+                    <tr><td>الجمعة 13 مارس 2026</td><td>23 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
+                    <tr><td>السبت 14 مارس 2026</td><td>24 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
+                    <tr><td>الأحد 15 مارس 2026</td><td>25 رمضان 1447</td><td>عيسى موسى وابراهيم</td><td>[فاعلم انه لا إله إلا الله]</td></tr>
+                    <tr><td>الاثنين 16 مارس 2026</td><td>26 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الانفطار</td></tr>
+                    <tr><td>الثلاثاء 17 مارس 2026</td><td>27 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الأربعاء 18 مارس 2026</td><td>28 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام زكاة الفطر</td></tr>
+                    <tr><td>الخميس 19 مارس 2026</td><td>29 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام عيد الفطر</td></tr>
+                    <tr><td>الجمعة 20 مارس 2026</td><td>01 شوال 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                </tbody>
+            </table>
 
-        <!-- الجدول بنفس البيانات (31 صفاً) -->
-        <table class="program-table">
-            <thead>
-                <tr>
-                    <th>التاريخ الميلادي</th>
-                    <th>التاريخ الهجري</th>
-                    <th>المرشد</th>
-                    <th>الموضوع</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>الأربعاء 18 فيفري 2026</td><td>30 شعبان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
-                <tr><td>الخميس 19 فيفري 2026</td><td>01 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
-                <tr><td>الجمعة 20 فيفري 2026</td><td>02 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام رمضان</td></tr>
-                <tr><td>السبت 21 فيفري 2026</td><td>03 رمضان 1447</td><td>بنوح بن محمد باعلي واسعيد</td><td>[ومن احسن قولا ممن دعا إلى الله]</td></tr>
-                <tr><td>الأحد 22 فيفري 2026</td><td>04 رمضان 1447</td><td>بوحديبة جابر بن عيسى</td><td>خطورة الأنا على النفس</td></tr>
-                <tr><td>الاثنين 23 فيفري 2026</td><td>05 رمضان 1447</td><td>بوحديبة جابر بن عيسى</td><td>خطورة الأنا على النفس</td></tr>
-                <tr><td>الثلاثاء 24 فيفري 2026</td><td>06 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان والقرآن</td></tr>
-                <tr><td>الأربعاء 25 فيفري 2026</td><td>07 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان فرصتك للتغيير</td></tr>
-                <tr><td>الخميس 26 فيفري 2026</td><td>08 رمضان 1447</td><td>مصطفى بن محمد معيز الحاج أحمد</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الجمعة 27 فيفري 2026</td><td>09 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>السبت 28 فيفري 2026</td><td>10 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الشمس</td></tr>
-                <tr><td>الأحد 01 مارس 2026</td><td>11 رمضان 1447</td><td>يوسف بن محمد حكيمي</td><td>النظام العرفي في العمران وتحديات العصر</td></tr>
-                <tr><td>الاثنين 02 مارس 2026</td><td>12 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
-                <tr><td>الثلاثاء 03 مارس 2026</td><td>13 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
-                <tr><td>الأربعاء 04 مارس 2026</td><td>14 رمضان 1447</td><td>الناصر الناصر</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الخميس 05 مارس 2026</td><td>15 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الجمعة 06 مارس 2026</td><td>16 رمضان 1447</td><td>بكير بن محمد بوكرموش</td><td>[لأقعدن لهم صراطك المستقيم]</td></tr>
-                <tr><td>السبت 07 مارس 2026</td><td>17 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الأحد 08 مارس 2026</td><td>18 رمضان 1447</td><td>عيسى بن باحمد مصباح</td><td>تحري الكسب الحلال</td></tr>
-                <tr><td>الاثنين 09 مارس 2026</td><td>19 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
-                <tr><td>الثلاثاء 10 مارس 2026</td><td>20 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
-                <tr><td>الأربعاء 11 مارس 2026</td><td>21 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الخميس 12 مارس 2026</td><td>22 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
-                <tr><td>الجمعة 13 مارس 2026</td><td>23 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
-                <tr><td>السبت 14 مارس 2026</td><td>24 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
-                <tr><td>الأحد 15 مارس 2026</td><td>25 رمضان 1447</td><td>عيسى موسى وابراهيم</td><td>[فاعلم انه لا إله إلا الله]</td></tr>
-                <tr><td>الاثنين 16 مارس 2026</td><td>26 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الانفطار</td></tr>
-                <tr><td>الثلاثاء 17 مارس 2026</td><td>27 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                <tr><td>الأربعاء 18 مارس 2026</td><td>28 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام زكاة الفطر</td></tr>
-                <tr><td>الخميس 19 مارس 2026</td><td>29 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام عيد الفطر</td></tr>
-                <tr><td>الجمعة 20 مارس 2026</td><td>01 شوال 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-            </tbody>
-        </table>
-
-        <!-- تذييل مضغوط -->
-        <div class="footer-note">
-            <span class="icon">☪️</span>
-            <span>لجنة الإرشاد - غرداية</span>
-            <span>الحلقة الموحدة</span>
-            <span class="icon">🕋</span>
-        </div>
-        <div class="bottom-stamp">
-            ✦ برنامج الدروس اليومية بعد صلاة التراويح ✦
+            <!-- تذييل فخم -->
+            <div class="footer-elegant">
+                <span class="icon">☪️</span>
+                <span>لجنة الإرشاد - غرداية</span>
+                <span>الحلقة الموحدة</span>
+                <span class="icon">🕋</span>
+            </div>
+            <div class="bottom-note">
+                ✦ الدروس بعد صلاة التراويح ✦ المسجد الكبير الإباضي ✦
+            </div>
         </div>
     </div>
 </body>
