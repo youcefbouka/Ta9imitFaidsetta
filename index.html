@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برنامج الإرشاد | رمضان 1447 هـ | تصميم احترافي</title>
+    <title>برنامج الإرشاد · رمضان 1447 هـ · تصميم فخم</title>
     <style>
-        /* إعدادات الصفحة A3 عمودي مع هوامر ضيقة لاستيعاب المحتوى */
+        /* إعدادات الصفحة A3 عمودي بهوامش مناسبة */
         @page {
             size: A3 portrait;
-            margin: 0.7cm;
+            margin: 1cm;
         }
 
         * {
@@ -18,50 +18,50 @@
         }
 
         body {
-            background: #c7b199; /* خلفية خارجية دافئة */
+            background: #c9b39b; /* خلفية خارجية دافئة */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', 'Times New Roman', serif;
-            padding: 10px;
+            padding: 8px;
         }
 
-        /* الحاوية الرئيسية - A3 portrait بالضبط */
+        /* الحاوية الرئيسية A3 portrait (29.7cm x 42cm) */
         .a3-portrait {
             width: 29.7cm;
             min-width: 29.7cm;
             max-width: 29.7cm;
             height: 42cm;
-            background: #fcf7f0; /* قاعدة فاتحة جداً */
-            border-radius: 40px 40px 30px 30px;
-            box-shadow: 0 25px 50px rgba(100, 30, 20, 0.3);
+            background: #fcf7f0; /* قاعدة فاتحة */
+            border-radius: 30px 30px 25px 25px;
+            box-shadow: 0 25px 45px rgba(120, 40, 20, 0.35);
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* قص أي محتوى زائد */
-            border: 2px solid #c28a5c; /* لون ذهبي-نحاسي */
+            overflow: hidden;
+            border: 2px solid #b0673c; /* حدود نحاسية */
         }
 
-        /* الخلفية الرئيسية بنقش خفيف جداً مع تدرج لوني */
+        /* خلفية متدرجة خفيفة ونقوش دقيقة */
         .a3-portrait::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(210, 120, 80, 0.03) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(150, 40, 30, 0.04) 0%, transparent 40%),
-                repeating-linear-gradient(45deg, rgba(180, 70, 50, 0.02) 0px, rgba(180, 70, 50, 0.02) 2px, transparent 2px, transparent 8px);
+                radial-gradient(circle at 20% 30%, rgba(170, 70, 40, 0.03) 0%, transparent 35%),
+                radial-gradient(circle at 90% 70%, rgba(140, 45, 25, 0.04) 0%, transparent 45%),
+                repeating-linear-gradient(45deg, rgba(150, 55, 30, 0.02) 0px, rgba(150, 55, 30, 0.02) 2px, transparent 2px, transparent 10px);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* طبقة حمراء فخمة شفافة في الأعلى */
+        /* طبقة حمراء شفافة علوية */
         .a3-portrait::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 200px;
-            background: linear-gradient(180deg, rgba(150, 30, 30, 0.15) 0%, transparent 90%);
+            background: linear-gradient(180deg, rgba(140, 35, 25, 0.2) 0%, transparent 90%);
             pointer-events: none;
             z-index: 1;
         }
@@ -76,37 +76,37 @@
             padding: 0.7cm 0.6cm 0.5cm 0.6cm;
         }
 
-        /* زخرفة علوية على شكل شريط أحمر فخم */
+        /* شريط علوي أحمر فخم */
         .top-ornament {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 12px;
+            height: 10px;
             background: linear-gradient(90deg, #9e2a2b, #c49a6c, #9e2a2b);
-            box-shadow: 0 2px 10px #a53a2d;
+            box-shadow: 0 2px 12px #9e4a35;
             z-index: 3;
-            border-radius: 40px 40px 0 0;
+            border-radius: 30px 30px 0 0;
         }
 
         /* رأس الصفحة */
         .header-section {
             text-align: center;
-            margin-bottom: 0.4cm;
+            margin-bottom: 0.5cm;
             position: relative;
         }
 
         .main-title {
             font-size: 38px;
             font-weight: 800;
-            color: #4a251b; /* بني محمر غامق */
-            text-shadow: 2px 2px 0 rgba(215, 170, 120, 0.3);
-            line-height: 1.35;
+            color: #4a251b;
+            text-shadow: 2px 2px 0 rgba(200, 150, 100, 0.3);
+            line-height: 1.4;
             background: linear-gradient(180deg, #fffaf2, #f4e5d8);
             display: inline-block;
-            padding: 0.1cm 1cm;
+            padding: 0.15cm 1.2cm;
             border-radius: 80px 80px 30px 30px;
-            box-shadow: 0 6px 0 #9e5e3b, 0 10px 18px rgba(140, 50, 30, 0.1);
+            box-shadow: 0 6px 0 #9e5e3b, 0 10px 20px rgba(140, 50, 20, 0.15);
             border: 1px solid #bf7b4c;
         }
 
@@ -126,21 +126,21 @@
             border-radius: 60px;
             margin-top: 0.3cm;
             border: 2px solid #e4b481;
-            box-shadow: 0 5px 0 #4f2b18, 0 8px 15px rgba(150, 40, 30, 0.3);
+            box-shadow: 0 5px 0 #4f2b18, 0 8px 18px rgba(150, 40, 30, 0.3);
             font-weight: 600;
             letter-spacing: 1px;
         }
 
-        /* شريط التاريخ */
+        /* شريط التاريخ (بدون إيموجي) */
         .date-bar {
             display: flex;
             justify-content: center;
-            gap: 0.6cm;
-            background: rgba(255, 240, 225, 0.7);
+            gap: 0.7cm;
+            background: rgba(255, 240, 225, 0.8);
             backdrop-filter: blur(2px);
-            padding: 0.25cm 0.8cm;
+            padding: 0.25cm 1cm;
             border-radius: 70px;
-            margin: 0.3cm 0 0.4cm;
+            margin: 0.3cm 0 0.5cm;
             border: 1px solid #ba7a4a;
             box-shadow: 0 3px 0 #8f4e2e, inset 0 2px 8px #ffe2c1;
             font-size: 24px;
@@ -150,29 +150,32 @@
 
         .date-bar div {
             background: #fffbf5;
-            padding: 0.15cm 1cm;
+            padding: 0.15cm 1.2cm;
             border-radius: 50px;
             border: 1px solid #be6b42;
             box-shadow: inset 0 1px 5px #ddb594;
         }
 
-        /* الجدول - تصميم فاخر */
+        /* الجدول الرئيسي */
         .program-table {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 21.5px; /* تمت زيادة الحجم قليلاً مع المحافظة على 31 صفاً */
+            border-collapse: separate; /* لتفعيل border-radius على الخلايا */
+            border-spacing: 0; /* إزالة الفراغات بين الخلايا */
+            font-size: 21px;
             font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
-            background: rgba(255, 248, 240, 0.9);
-            backdrop-filter: blur(1px);
-            border: 2px solid #b15d3a;
-            box-shadow: 0 12px 25px rgba(100, 30, 15, 0.25);
-            flex: 1; /* يأخذ المساحة المتبقية */
-            table-layout: fixed; /* توزيع محكم للأعمدة */
-            border-radius: 18px 18px 12px 12px;
-            overflow: hidden;
+            background: transparent;
+            flex: 1;
+            table-layout: fixed;
+            border: none; /* سنستخدم حدود الخلايا */
         }
 
-        /* رؤوس الأعمدة بتدرج أحمر فخم */
+        /* توزيع عرض الأعمدة */
+        .program-table th:nth-child(1) { width: 22%; } /* ميلادي */
+        .program-table th:nth-child(2) { width: 18%; } /* هجري */
+        .program-table th:nth-child(3) { width: 24%; } /* مرشد */
+        .program-table th:nth-child(4) { width: 36%; } /* موضوع */
+
+        /* رؤوس الأعمدة بتدرج أحمر فخم وزوايا دائرية */
         .program-table th {
             background: linear-gradient(145deg, #9b2c2c, #751e1e);
             color: #f9e3c1;
@@ -185,53 +188,37 @@
             letter-spacing: 0.5px;
             text-shadow: 1px 1px 0 #4f1e1e;
             box-shadow: inset 0 -2px 0 #d4a373;
+            border-radius: 12px 12px 0 0; /* زوايا دائرية علوية فقط للرأس */
         }
 
-        /* توزيع عرض الأعمدة */
-        .program-table th:nth-child(1) { width: 22%; } /* ميلادي */
-        .program-table th:nth-child(2) { width: 18%; } /* هجري */
-        .program-table th:nth-child(3) { width: 25%; } /* مرشد */
-        .program-table th:nth-child(4) { width: 35%; } /* موضوع */
-
+        /* الخلايا */
         .program-table td {
             padding: 0.15cm 0.15cm;
-            border: 1px solid #c9926b;
-            text-align: center;
-            vertical-align: middle;
+            border: 1px solid #c58b62; /* إطار خاص بكل خلية */
+            text-align: center; /* محاذاة أفقية في الوسط */
+            vertical-align: middle; /* محاذاة رأسية في الوسط */
             background-color: #fffcf4;
             color: #2e2a23;
             font-weight: 450;
             line-height: 1.3;
+            border-radius: 10px; /* زوايا دائرية ناعمة لكل خلية */
         }
 
-        /* صفوف متناوبة ناعمة مع لمسة حمراء */
-        .program-table tbody tr:nth-child(even) td {
-            background: linear-gradient(90deg, #fef7ee, #faeeda);
-        }
-
-        /* لمسة حمراء على الجانب الأيمن لكل خلية */
-        .program-table td::before {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 10%;
-            height: 80%;
-            width: 3px;
-            background: linear-gradient(180deg, #c3623a, #b33f2a);
-            border-radius: 3px;
-            opacity: 0.4;
-        }
-
-        /* إعادة ضبط للخلايا لأن الـ before المطلق سيحتاج إلى relative */
-        .program-table td {
-            position: relative;
-        }
-
-        /* محاذاة المرشد والموضوع لليمين */
-        .program-table td:nth-child(3),
+        /* عناوين الدروس بالغليظ */
         .program-table td:nth-child(4) {
-            text-align: right;
-            padding-right: 0.3cm;
+            font-weight: 700; /* غليظ */
+            color: #2a3f1f;
+        }
+
+        /* أسماء المرشدين غليظ أيضاً (اختياري للتناسق) */
+        .program-table td:nth-child(3) {
+            font-weight: 600;
+            color: #6b2f1a;
+        }
+
+        /* تناوب الألوان بين الصفوف */
+        .program-table tbody tr:nth-child(even) td {
+            background: #f9efe2; /* لون فاتح دافئ */
         }
 
         /* الخلايا الفارغة */
@@ -242,14 +229,14 @@
             background: #faf2e6;
         }
 
-        /* تذييل أنيق */
+        /* تذييل أنيق بدون إيموجيات */
         .footer-elegant {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 0.25cm;
+            margin-top: 0.3cm;
             background: linear-gradient(90deg, #dbb594, #f0dbc4, #dbb594);
-            padding: 0.2cm 0.8cm;
+            padding: 0.2cm 1cm;
             border-radius: 70px;
             border: 2px solid #ac623c;
             box-shadow: 0 4px 0 #784629, inset 0 1px 5px #ffdbb5;
@@ -261,16 +248,11 @@
         .footer-elegant span {
             background: #9e3a2b;
             color: #ffefd5;
-            padding: 0.1cm 0.8cm;
+            padding: 0.1cm 1cm;
             border-radius: 50px;
             border: 1px solid #e7b78c;
             box-shadow: 0 2px 0 #54291a;
             font-size: 20px;
-        }
-
-        .footer-elegant .icon {
-            font-size: 32px;
-            filter: drop-shadow(0 2px 4px #752e1a);
         }
 
         .bottom-note {
@@ -282,7 +264,7 @@
             text-shadow: 0 1px 1px #e9cbb2;
         }
 
-        /* طباعة */
+        /* تحسين الطباعة */
         @media print {
             body { background: white; }
             .a3-portrait { box-shadow: none; border-color: #a15533; }
@@ -299,16 +281,16 @@
                     <span>لجنة الإرشاد</span>
                 </div>
                 <div class="sub-mosque">
-                    🕌 مسجد أخلخال 🕌
+                    مسجد أخلخال
                 </div>
             </div>
 
             <div class="date-bar">
-                <div>🌙 رمضان 1447 هـ</div>
-                <div>📆 مارس 2026 م</div>
+                <div>رمضان 1447 هـ</div>
+                <div>مارس 2026 م</div>
             </div>
 
-            <!-- الجدول كامل 31 صفاً -->
+            <!-- الجدول كامل 31 صفاً مع إطارات الخلايا وزوايا دائرية -->
             <table class="program-table">
                 <thead>
                     <tr>
@@ -353,15 +335,14 @@
                 </tbody>
             </table>
 
-            <!-- تذييل فخم -->
+            <!-- تذييل بدون أي إيموجي -->
             <div class="footer-elegant">
-                <span class="icon">☪️</span>
-                <span>لجنة الإرشاد - غرداية</span>
-                <span>الحلقة الموحدة</span>
-                <span class="icon">🕋</span>
+                <span>لجنة الإرشاد</span>
+                <span>غرداية - الحلقة الموحدة</span>
+                <span>مسجد أخلخال</span>
             </div>
             <div class="bottom-note">
-                ✦ الدروس بعد صلاة التراويح ✦ المسجد الكبير الإباضي ✦
+                برنامج الدروس اليومية بعد صلاة التراويح
             </div>
         </div>
     </div>
