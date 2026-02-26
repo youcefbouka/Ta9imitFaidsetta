@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برنامج الإرشاد · رمضان 1447 هـ · التصميم الفخم</title>
+    <title>برنامج الدروس · رمضان 1447 هـ · مسجد أخلخال</title>
     <style>
-        /* إعدادات الصفحة A3 عمودي بهوامش مناسبة */
+        /* إعدادات الصفحة A3 عمودي */
         @page {
             size: A3 portrait;
             margin: 0.9cm;
@@ -27,7 +27,6 @@
             padding: 8px;
         }
 
-        /* الحاوية الرئيسية A3 portrait (29.7cm x 42cm) */
         .a3-portrait {
             width: 29.7cm;
             min-width: 29.7cm;
@@ -43,7 +42,7 @@
             border: 2px solid #b0673c;
         }
 
-        /* خلفية متدرجة خفيفة ونقوش دقيقة */
+        /* خلفية متدرجة ونقوش */
         .a3-portrait::before {
             content: "";
             position: absolute;
@@ -66,7 +65,6 @@
             z-index: 1;
         }
 
-        /* المحتوى فوق الخلفيات */
         .content {
             position: relative;
             z-index: 2;
@@ -76,7 +74,7 @@
             padding: 0.7cm 0.6cm 0.5cm 0.6cm;
         }
 
-        /* شريط علوي أحمر فخم */
+        /* شريط علوي أحمر */
         .top-ornament {
             position: absolute;
             top: 0;
@@ -89,7 +87,6 @@
             border-radius: 30px 30px 0 0;
         }
 
-        /* رأس الصفحة */
         .header-section {
             text-align: center;
             margin-bottom: 0.5cm;
@@ -156,7 +153,7 @@
             box-shadow: inset 0 1px 5px #ddb594;
         }
 
-        /* الجدول الرئيسي */
+        /* الجدول */
         .program-table {
             width: 100%;
             border-collapse: separate;
@@ -169,13 +166,11 @@
             border: none;
         }
 
-        /* توزيع عرض الأعمدة */
         .program-table th:nth-child(1) { width: 22%; } /* ميلادي */
         .program-table th:nth-child(2) { width: 18%; } /* هجري */
         .program-table th:nth-child(3) { width: 24%; } /* مرشد */
         .program-table th:nth-child(4) { width: 36%; } /* موضوع */
 
-        /* رؤوس الأعمدة */
         .program-table th {
             background: linear-gradient(145deg, #9b2c2c, #751e1e);
             color: #f9e3c1;
@@ -191,7 +186,6 @@
             border-radius: 12px 12px 0 0;
         }
 
-        /* الخلايا */
         .program-table td {
             padding: 0.15cm 0.15cm;
             border: 1px solid #c58b62;
@@ -210,26 +204,24 @@
             color: #2a3f1f;
         }
 
-        /* أسماء المرشدين غليظ أيضاً */
+        /* أسماء المرشدين غليظ */
         .program-table td:nth-child(3) {
             font-weight: 600;
             color: #6b2f1a;
         }
 
-        /* تناوب الألوان بين الصفوف */
+        /* تناوب الألوان */
         .program-table tbody tr:nth-child(even) td {
             background: #f9efe2;
         }
 
-        /* الخلايا الفارغة */
-        .empty-lesson {
-            color: #ac6e52;
-            font-style: italic;
-            font-weight: 400;
-            background: #faf2e6;
+        /* خلايا فارغة - نضع  لضمان الارتفاع */
+        .empty-cell {
+            color: transparent;
+            user-select: none;
         }
 
-        /* تذييل أنيق بدون إيموجيات */
+        /* تذييل أنيق */
         .footer-elegant {
             display: flex;
             justify-content: space-between;
@@ -277,7 +269,7 @@
             <div class="header-section">
                 <div class="main-title">
                     المسجد الكبير الإباضي لقصر غرداية - الحلقة الموحدة -
-                    <span>لجنة الإرشاد</span>
+                    <span>برنامج الدروس في رمضان 1447 هـ / مارس 2026 م</span>
                 </div>
                 <div class="sub-mosque">
                     مسجد أخلخال
@@ -289,7 +281,7 @@
                 <div>مارس 2026 م</div>
             </div>
 
-            <!-- الجدول محدث وفق البيانات الجديدة -->
+            <!-- الجدول محدث حسب البيانات المطلوبة، الخلايا الفارغة تحتوي على  (غير مرئي) -->
             <table class="program-table">
                 <thead>
                     <tr>
@@ -309,39 +301,39 @@
                     <tr><td>الثلاثاء 24 فيفري 2026</td><td>06 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان والقرآن</td></tr>
                     <tr><td>الأربعاء 25 فيفري 2026</td><td>07 رمضان 1447</td><td>مصطفى بن باسعيد الحاج سعيد</td><td>رمضان فرصتك للتغيير</td></tr>
                     <tr><td>الخميس 26 فيفري 2026</td><td>08 رمضان 1447</td><td>مصطفى بن محمد معيز الحاج أحمد</td><td>من فقه الوصية</td></tr>
-                    <tr><td>الجمعة 27 فيفري 2026</td><td>09 رمضان 1447</td><td>باحمد بن علي عبد السلام</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الجمعة 27 فيفري 2026</td><td>09 رمضان 1447</td><td>باحمد بن علي عبد السلام</td><td>إضاءات من عقيدة أهل الحق والاستقامة</td></tr>
                     <tr><td>السبت 28 فيفري 2026</td><td>10 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الشمس</td></tr>
                     <tr><td>الأحد 01 مارس 2026</td><td>11 رمضان 1447</td><td>يوسف بن محمد حكيمي</td><td>النظام العرفي في العمران وتحديات العصر</td></tr>
                     <tr><td>الاثنين 02 مارس 2026</td><td>12 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
                     <tr><td>الثلاثاء 03 مارس 2026</td><td>13 رمضان 1447</td><td>سعيد بن قاسم بوكرموش</td><td>العلاقات المالية بين الآباء والأبناء</td></tr>
-                    <tr><td>الأربعاء 04 مارس 2026</td><td>14 رمضان 1447</td><td>الناصر بن علي ناصر</td><td class="empty-lesson">لم يحدد بعد</td></tr>
-                    <tr><td>الخميس 05 مارس 2026</td><td>15 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الأربعاء 04 مارس 2026</td><td>14 رمضان 1447</td><td>الناصر بن علي ناصر</td><td><span class="empty-cell">&nbsp;</span></td></tr>
+                    <tr><td>الخميس 05 مارس 2026</td><td>15 رمضان 1447</td><td><span class="empty-cell">&nbsp;</span></td><td><span class="empty-cell">&nbsp;</span></td></tr>
                     <tr><td>الجمعة 06 مارس 2026</td><td>16 رمضان 1447</td><td>بكير بن محمد بوكرموش</td><td>[لأقعدن لهم صراطك المستقيم]</td></tr>
-                    <tr><td>السبت 07 مارس 2026</td><td>17 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>السبت 07 مارس 2026</td><td>17 رمضان 1447</td><td><span class="empty-cell">&nbsp;</span></td><td><span class="empty-cell">&nbsp;</span></td></tr>
                     <tr><td>الأحد 08 مارس 2026</td><td>18 رمضان 1447</td><td>عيسى بن باحمد مصباح</td><td>تحري الكسب الحلال</td></tr>
                     <tr><td>الاثنين 09 مارس 2026</td><td>19 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
                     <tr><td>الثلاثاء 10 مارس 2026</td><td>20 رمضان 1447</td><td>محمد بن قاسم أويابة</td><td>نعمة الوالدين</td></tr>
-                    <tr><td>الأربعاء 11 مارس 2026</td><td>21 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الأربعاء 11 مارس 2026</td><td>21 رمضان 1447</td><td>عز الدين بن بابا كارة</td><td><span class="empty-cell">&nbsp;</span></td></tr>
                     <tr><td>الخميس 12 مارس 2026</td><td>22 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
                     <tr><td>الجمعة 13 مارس 2026</td><td>23 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
                     <tr><td>السبت 14 مارس 2026</td><td>24 رمضان 1447</td><td>باحمد بن سعيد باعلي وسعيد</td><td>إصلاح العلاقات وإنهاء النزاع</td></tr>
                     <tr><td>الأحد 15 مارس 2026</td><td>25 رمضان 1447</td><td>عيسى موسى وابراهيم</td><td>[فاعلم انه لا إله إلا الله]</td></tr>
                     <tr><td>الاثنين 16 مارس 2026</td><td>26 رمضان 1447</td><td>إبراهيم بن لخضر قصبي</td><td>قبسات من سورة الانفطار</td></tr>
-                    <tr><td>الثلاثاء 17 مارس 2026</td><td>27 رمضان 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الثلاثاء 17 مارس 2026</td><td>27 رمضان 1447</td><td><span class="empty-cell">&nbsp;</span></td><td><span class="empty-cell">&nbsp;</span></td></tr>
                     <tr><td>الأربعاء 18 مارس 2026</td><td>28 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام زكاة الفطر</td></tr>
                     <tr><td>الخميس 19 مارس 2026</td><td>29 رمضان 1447</td><td>خالد بن عيسى سيوسيو</td><td>أحكام عيد الفطر</td></tr>
-                    <tr><td>الجمعة 20 مارس 2026</td><td>01 شوال 1447</td><td class="empty-lesson">—</td><td class="empty-lesson">لم يحدد بعد</td></tr>
+                    <tr><td>الجمعة 20 مارس 2026</td><td>01 شوال 1447</td><td><span class="empty-cell">&nbsp;</span></td><td><span class="empty-cell">&nbsp;</span></td></tr>
                 </tbody>
             </table>
 
-            <!-- تذييل بدون أي إيموجي -->
+            <!-- تذييل متناسق مع البرنامج -->
             <div class="footer-elegant">
-                <span>لجنة الإرشاد</span>
+                <span>برنامج الدروس</span>
                 <span>غرداية - الحلقة الموحدة</span>
                 <span>مسجد أخلخال</span>
             </div>
             <div class="bottom-note">
-                برنامج الدروس اليومية بعد صلاة التراويح
+                الدروس اليومية بعد صلاة التراويح
             </div>
         </div>
     </div>
